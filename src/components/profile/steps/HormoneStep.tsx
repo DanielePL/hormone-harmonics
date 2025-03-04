@@ -1,11 +1,12 @@
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { LineChart, CalendarDays, FileUp, ArrowLeft, Sparkles, ClipboardCheck } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
 
 interface HormoneStepProps {
   formData: {
@@ -28,6 +29,47 @@ const HormoneStep = ({
   nextStep,
   prevStep
 }: HormoneStepProps) => {
+  const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      
+      // Check file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        toast({
+          title: "File too large",
+          description: "Please upload a file smaller than 10MB",
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      // Check file type (PDF, JPG, PNG)
+      const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+      if (!validTypes.includes(file.type)) {
+        toast({
+          title: "Invalid file type",
+          description: "Please upload a PDF, JPG, or PNG file",
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      setUploadedFile(file);
+      toast({
+        title: "File uploaded",
+        description: `${file.name} has been uploaded successfully`,
+      });
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <Card className="border-none shadow-md">
       <CardHeader className="bg-gradient-to-r from-rose-100/70 to-teal-100/70 pb-6">
@@ -126,10 +168,26 @@ const HormoneStep = ({
             <p className="text-sm text-muted-foreground mb-3">
               Upload your hormone lab results to receive personalized workout and nutrition recommendations
             </p>
-            <Button variant="outline" className="w-full flex items-center justify-center gap-2 bg-white">
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileUpload}
+              accept=".pdf,.jpg,.jpeg,.png"
+              className="hidden"
+            />
+            <Button 
+              variant="outline" 
+              className="w-full flex items-center justify-center gap-2 bg-white"
+              onClick={triggerFileInput}
+            >
               <FileUp size={16} />
-              Upload Lab Report
+              {uploadedFile ? uploadedFile.name : "Upload Lab Report"}
             </Button>
+            {uploadedFile && (
+              <p className="text-xs text-muted-foreground mt-2">
+                File uploaded: {uploadedFile.name}
+              </p>
+            )}
           </div>
         )}
 
@@ -175,7 +233,7 @@ const HormoneStep = ({
         </Button>
         <Button 
           onClick={nextStep}
-          className="px-5 gap-2"
+          className="px-5 gap-2 cta-button"
           size="lg"
         >
           Get My Results <Sparkles size={16} />
