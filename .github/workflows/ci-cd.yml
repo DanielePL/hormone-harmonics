@@ -20,14 +20,13 @@ jobs:
 
     - name: Install Supabase CLI
       run: |
-        curl -fsSL https://get.supabase.com/install | sh
-        export PATH="$HOME/.supabase/bin:$PATH"
-        echo "$HOME/.supabase/bin" >> $GITHUB_PATH  # Ensure CLI is available globally
+        curl -L "https://github.com/supabase/cli/releases/latest/download/supabase-linux-amd64" -o supabase
+        chmod +x supabase
+        sudo mv supabase /usr/local/bin/
+        export PATH="/usr/local/bin:$PATH"
 
     - name: Verify Supabase CLI Installation
-      run: |
-        ls -la $HOME/.supabase/bin  # Check if Supabase CLI is installed
-        which supabase  # Verify if Supabase is found in the system
+      run: supabase --version  # Check if Supabase CLI is now recognized
 
     - name: Authenticate with Supabase
       env:
