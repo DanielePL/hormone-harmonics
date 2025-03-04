@@ -7,11 +7,17 @@ interface StepIndicatorProps {
   currentStep: number;
   totalSteps: number;
   labels?: string[];
+  description?: string;
 }
 
-const StepIndicator = ({ currentStep, totalSteps, labels }: StepIndicatorProps) => {
+const StepIndicator = ({ currentStep, totalSteps, labels, description }: StepIndicatorProps) => {
   return (
-    <div className="w-full max-w-xl mx-auto mt-8 mb-4">
+    <div className="w-full max-w-xl mx-auto mt-8 mb-8">
+      {description && (
+        <p className="text-center text-muted-foreground mb-4 px-4 text-sm">
+          {description}
+        </p>
+      )}
       <div className="flex items-center justify-between">
         {Array.from({ length: totalSteps }).map((_, index) => {
           const stepNumber = index + 1;
@@ -24,7 +30,7 @@ const StepIndicator = ({ currentStep, totalSteps, labels }: StepIndicatorProps) 
               <div className="relative flex flex-col items-center">
                 <div
                   className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all",
+                    "w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all shadow-sm",
                     isActive ? "border-primary bg-primary/10 text-primary" : 
                     isCompleted ? "border-primary bg-primary text-primary-foreground" : 
                     "border-muted-foreground/30 text-muted-foreground"
@@ -39,8 +45,8 @@ const StepIndicator = ({ currentStep, totalSteps, labels }: StepIndicatorProps) 
                 {labels && (
                   <span 
                     className={cn(
-                      "absolute -bottom-6 text-xs whitespace-nowrap", 
-                      isActive || isCompleted ? "text-primary" : "text-muted-foreground"
+                      "absolute -bottom-7 text-xs text-center whitespace-nowrap max-w-28", 
+                      isActive || isCompleted ? "text-primary font-medium" : "text-muted-foreground"
                     )}
                   >
                     {labels[index]}
