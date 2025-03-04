@@ -1,4 +1,4 @@
-name: Deploy to Supabase
+name: Deploy to Supabase 
 
 on:
   push:
@@ -27,7 +27,11 @@ jobs:
       run: supabase --version  # Check if the CLI is correctly installed
 
     - name: Authenticate with Supabase
-      run: supabase login --access-token "${{ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxdXpjcmpteGdsamFjeGFmbG1qIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MTA2OTMxMCwiZXhwIjoyMDU2NjQ1MzEwfQ.gQg8ihwtwzcZCDracSsa5f-NzBuEvqu2weRDJnMOWBA }}"
+      env:
+        SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      run: supabase login --access-token "$SUPABASE_ACCESS_TOKEN"
 
     - name: Deploy Supabase Functions
-      run: supabase functions deploy --project-id "${{ wquzcrjmxgljacxaflmj }}"
+      env:
+        SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+      run: supabase functions deploy --project-id "$SUPABASE_PROJECT_ID"
