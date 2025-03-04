@@ -25,6 +25,9 @@ jobs:
         chmod +x "$TEMP_DIR/supabase"
         sudo mv "$TEMP_DIR/supabase" /usr/local/bin/supabase
         rm -rf "$TEMP_DIR"
+        which supabase
+        ls -la /usr/local/bin/supabase
+        supabase --help
 
     - name: Verify Supabase CLI Installation
       run: supabase --version  # Check if Supabase CLI is now recognized
