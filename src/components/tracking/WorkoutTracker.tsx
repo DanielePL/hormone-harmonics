@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,9 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import GlassCard from '@/components/ui/GlassCard';
 import AnimatedCard from '@/components/ui/AnimatedCard';
 import { Textarea } from '@/components/ui/textarea';
-import { Separator } from '@/components/ui/separator';
 import { Plus, Trash2, Dumbbell, Activity, Calendar } from 'lucide-react';
 import InsightPanel from '@/components/ui/InsightPanel';
+import WorkoutPlanCard from './WorkoutPlanCard';
+import WeeklyPlanCard from './WeeklyPlanCard';
 
 const WorkoutTracker = () => {
   const [exercises, setExercises] = React.useState([{ name: '', sets: [{ weight: '', reps: '', rpe: '' }] }]);
@@ -234,121 +234,8 @@ const WorkoutTracker = () => {
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-                <Card className="border-none shadow-sm">
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-base">Today's Recommended Workout</CardTitle>
-                      <Calendar className="w-4 h-4 text-muted-foreground" />
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-2">
-                        <Dumbbell className="w-5 h-5 text-primary" />
-                        <h4 className="font-medium">Upper Body Strength</h4>
-                      </div>
-                      
-                      <InsightPanel
-                        type="info"
-                        title="Hormone-Optimized Training"
-                        description="Today's workout is tailored for your current progesterone levels. Focus on controlled tempo and moderate volume."
-                      />
-                      
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span className="font-medium">Bench Press</span>
-                          <span>3 sets x 8 reps</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="font-medium">Dumbbell Row</span>
-                          <span>3 sets x 12 reps</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="font-medium">Overhead Press</span>
-                          <span>3 sets x 10 reps</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="font-medium">Lat Pulldown</span>
-                          <span>3 sets x 12 reps</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="font-medium">Bicep Curl</span>
-                          <span>3 sets x 15 reps</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="font-medium">Tricep Extension</span>
-                          <span>3 sets x 15 reps</span>
-                        </div>
-                      </div>
-                      
-                      <Button className="w-full">
-                        <Activity className="w-4 h-4 mr-2" />
-                        Start Workout
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <div className="space-y-4">
-                  <Card className="border-none shadow-sm">
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-base">Weekly Plan</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        <div className="grid grid-cols-7 gap-1">
-                          {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, i) => (
-                            <div 
-                              key={i} 
-                              className={`h-8 w-8 rounded-full flex items-center justify-center text-xs font-medium ${
-                                i === 1 ? 'bg-primary text-primary-foreground' : 'bg-secondary'
-                              }`}
-                            >
-                              {day}
-                            </div>
-                          ))}
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span>Monday</span>
-                            <span className="text-muted-foreground">Heavy Squat + Power</span>
-                          </div>
-                          <div className="flex justify-between text-sm font-medium">
-                            <span>Tuesday</span>
-                            <span className="text-primary">Upper Body Strength</span>
-                          </div>
-                          <div className="flex justify-between text-sm">
-                            <span>Wednesday</span>
-                            <span className="text-muted-foreground">Recovery & Zone 2</span>
-                          </div>
-                          <div className="flex justify-between text-sm">
-                            <span>Thursday</span>
-                            <span className="text-muted-foreground">Heavy Deadlifts</span>
-                          </div>
-                          <div className="flex justify-between text-sm">
-                            <span>Friday</span>
-                            <span className="text-muted-foreground">HIIT & Power</span>
-                          </div>
-                          <div className="flex justify-between text-sm">
-                            <span>Saturday</span>
-                            <span className="text-muted-foreground">Full Body Strength</span>
-                          </div>
-                          <div className="flex justify-between text-sm">
-                            <span>Sunday</span>
-                            <span className="text-muted-foreground">Recovery & Mobility</span>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  
-                  <InsightPanel
-                    type="optimal"
-                    title="Cortisol Management"
-                    description="Your current workout plan balances intensity with recovery to optimize cortisol levels and support estrogen production."
-                  />
-                </div>
+                <WorkoutPlanCard />
+                <WeeklyPlanCard />
               </div>
             </GlassCard>
           </AnimatedCard>
