@@ -3,7 +3,7 @@ name: Deploy to Supabase
 on:
   push:
     branches:
-      - main  # Change this if you're using another branch
+      - main  # Change this if using a different branch
 
 jobs:
   deploy:
@@ -21,10 +21,13 @@ jobs:
     - name: Install Supabase CLI
       run: |
         curl -fsSL https://get.supabase.com/install | sh
-        export PATH=$HOME/.supabase/bin:$PATH
+        echo "$HOME/.supabase/bin" >> $GITHUB_PATH  # Ensure Supabase CLI is in the path
+
+    - name: Verify Supabase CLI Installation
+      run: supabase --version  # Check if the CLI is correctly installed
 
     - name: Authenticate with Supabase
-      run: echo "${{ secrets.SUPABASE_ACCESS_TOKEN }}" | supabase login --access-token
+      run: supabase login --access-token "${{ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndxdXpjcmpteGdsamFjeGFmbG1qIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MTA2OTMxMCwiZXhwIjoyMDU2NjQ1MzEwfQ.gQg8ihwtwzcZCDracSsa5f-NzBuEvqu2weRDJnMOWBA }}"
 
     - name: Deploy Supabase Functions
-      run: supabase functions deploy --project-id "${{ secrets.SUPABASE_PROJECT_ID }}"
+      run: supabase functions deploy --project-id "${{ wquzcrjmxgljacxaflmj }}"
