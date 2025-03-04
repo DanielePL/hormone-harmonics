@@ -116,7 +116,7 @@ const Layout = ({ children }: LayoutProps) => {
 
       {/* Main content */}
       <div className="flex flex-col flex-1 md:pl-64">
-        <main className="flex-1 py-16 md:py-6 px-4 md:px-8">
+        <main className="flex-1 py-20 md:py-6 px-4 md:px-8">
           {children}
         </main>
       </div>
