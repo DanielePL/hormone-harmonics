@@ -13,6 +13,7 @@ import WorkoutTracker from "./components/tracking/WorkoutTracker";
 import NutritionTracker from "./pages/NutritionTracker";
 import BloodTestAnalysis from "./pages/BloodTestAnalysis";
 import Layout from "./components/layout/Layout";
+import CalendarView from "./components/calendar/CalendarView";
 
 const queryClient = new QueryClient();
 
@@ -30,13 +31,15 @@ const App = () => (
             <Route path="/hormone-tracker" element={<HormoneTracker />} />
             <Route path="/hormones" element={<HormoneTracker />} />
             <Route path="/workout-tracker" element={<WorkoutTracker />} />
-            <Route path="/workouts" element={<WorkoutTracker />} /> {/* Added alias route */}
+            <Route path="/workouts" element={<WorkoutTracker />} /> 
             <Route path="/nutrition-tracker" element={<NutritionTracker />} />
             <Route path="/nutrition" element={<NutritionTracker />} />
             <Route path="/blood-test-analysis" element={<BloodTestAnalysis />} />
+            <Route path="/health" element={<BloodTestAnalysis />} />
             <Route path="/profile" element={<ProfileSetup />} />
+            <Route path="/calendar" element={<CalendarView />} />
+            <Route path="/analytics" element={<Dashboard />} />
           </Route>
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
