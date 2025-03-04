@@ -34,7 +34,7 @@ const AnimatedCard = ({
   return (
     <div 
       className={cn(
-        "opacity-0 transform translate-y-4 transition-all duration-500",
+        "opacity-0 transform translate-y-4 transition-all duration-700 ease-in-out",
         isVisible ? "opacity-100 translate-y-0" : "",
         className
       )}
