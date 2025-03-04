@@ -20,10 +20,11 @@ jobs:
 
     - name: Install Supabase CLI
       run: |
-        curl -L "https://github.com/supabase/cli/releases/latest/download/supabase-linux-amd64" -o supabase
-        chmod +x supabase
-        sudo mv supabase /usr/local/bin/
-        export PATH="/usr/local/bin:$PATH"
+        TEMP_DIR=$(mktemp -d)
+        curl -L "https://github.com/supabase/cli/releases/latest/download/supabase-linux-amd64" -o "$TEMP_DIR/supabase"
+        chmod +x "$TEMP_DIR/supabase"
+        sudo mv "$TEMP_DIR/supabase" /usr/local/bin/supabase
+        rm -rf "$TEMP_DIR"
 
     - name: Verify Supabase CLI Installation
       run: supabase --version  # Check if Supabase CLI is now recognized
