@@ -2,7 +2,7 @@ name: Deploy to Supabase
 on:
   push:
     branches:
-      - main  # Change this if using a different branch
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,7 +12,9 @@ jobs:
     
     - name: Install Supabase CLI
       run: |
-        npm install -g supabase-cli
+        curl -o supabase.tar.gz https://github.com/supabase/cli/releases/download/v1.164.3/supabase_1.164.3_linux_amd64.tar.gz
+        tar -xzvf supabase.tar.gz
+        sudo mv supabase /usr/local/bin/
         supabase --version
     
     - name: Authenticate with Supabase
