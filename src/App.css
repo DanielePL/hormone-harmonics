@@ -1,15 +1,15 @@
 
+/* Reset some base styles */
 #root {
-  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
 }
 
-/* Subtle animations */
+/* Modern animations */
 @keyframes gentle-fade-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -18,47 +18,87 @@
 }
 
 .gentle-animation {
-  animation: gentle-fade-in 0.8s ease-out;
+  animation: gentle-fade-in 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Refined card styles */
 .elegant-card {
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease;
 }
 
 .elegant-card:hover {
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.06);
   transform: translateY(-2px);
 }
 
 /* Typography enhancements */
 .refined-heading {
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.3;
 }
 
 .refined-text {
-  line-height: 1.6;
+  line-height: 1.7;
   font-weight: 400;
 }
 
 /* Custom focus styles */
 .refined-focus:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(217, 119, 157, 0.3);
+  box-shadow: 0 0 0 2px rgba(217, 119, 157, 0.15);
 }
 
 .section-divider {
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(217, 119, 157, 0.2), transparent);
+  background: linear-gradient(to right, transparent, rgba(217, 119, 157, 0.12), transparent);
   margin: 2rem 0;
 }
 
 .wellness-highlight {
-  background: linear-gradient(135deg, rgba(255, 223, 235, 0.3), rgba(246, 237, 255, 0.3));
-  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 223, 235, 0.2), rgba(246, 237, 255, 0.2));
+  border-radius: 14px;
   padding: 1.5rem;
+}
+
+/* Premium UI elements */
+.glass-panel {
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+}
+
+.premium-shadow {
+  box-shadow: 
+    0 1px 2px rgba(0,0,0,0.04),
+    0 4px 12px rgba(0,0,0,0.04);
+}
+
+.premium-shadow-hover:hover {
+  box-shadow: 
+    0 4px 18px rgba(0,0,0,0.06),
+    0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* Soft gradients */
+.soft-gradient {
+  background: linear-gradient(to right, rgba(252, 228, 236, 0.4), rgba(233, 228, 240, 0.4));
+}
+
+/* Subtle transitions */
+.subtle-transition {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* More intuitive hover states */
+.hover-state {
+  transition: all 0.2s ease;
+}
+
+.hover-state:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
 }
