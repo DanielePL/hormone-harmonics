@@ -4,15 +4,18 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import UploadSection from '@/components/blood-test/UploadSection';
 import ResultsTabContent from '@/components/blood-test/ResultsTabContent';
 import SidePanel from '@/components/blood-test/SidePanel';
+import { toast } from "sonner";
 
 const BloodTestAnalysis = () => {
   const [activeTab, setActiveTab] = useState('results');
   const [fileUploaded, setFileUploaded] = useState(false);
+  const [uploadedFileName, setUploadedFileName] = useState('');
 
-  const handleFileUpload = (e: React.FormEvent) => {
-    // This would handle the file upload in a real implementation
-    e.preventDefault();
+  const handleFileUpload = (file: File) => {
+    console.log('File uploaded:', file.name);
+    setUploadedFileName(file.name);
     setFileUploaded(true);
+    toast.success(`File "${file.name}" successfully uploaded`);
   };
 
   return (
@@ -24,6 +27,19 @@ const BloodTestAnalysis = () => {
             Upload your lab results for personalized insights and recommendations
           </p>
         </div>
+        
+        {fileUploaded && (
+          <div className="px-4 py-2 bg-primary/10 rounded-md flex items-center">
+            <span className="font-medium text-primary">Current file: </span>
+            <span className="ml-2">{uploadedFileName}</span>
+            <button 
+              onClick={() => setFileUploaded(false)} 
+              className="ml-3 text-sm underline text-muted-foreground hover:text-primary transition-colors"
+            >
+              Replace
+            </button>
+          </div>
+        )}
       </div>
 
       {!fileUploaded ? (

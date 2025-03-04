@@ -1,17 +1,83 @@
 
-import React from 'react';
-import { Upload, FileText, Info } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { Upload, FileText, Info, Loader2 } from 'lucide-react';
 import AnimatedCard from '@/components/ui/AnimatedCard';
 import { Card, CardContent } from '@/components/ui/card';
+import { toast } from "sonner";
 
 interface UploadSectionProps {
-  onUpload: (e: React.FormEvent) => void;
+  onUpload: (file: File) => void;
 }
 
 const UploadSection = ({ onUpload }: UploadSectionProps) => {
+  const [dragActive, setDragActive] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFiles(e.dataTransfer.files[0]);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    
+    if (e.target.files && e.target.files[0]) {
+      handleFiles(e.target.files[0]);
+    }
+  };
+
+  const handleFiles = (file: File) => {
+    setIsUploading(true);
+    
+    // Validate file type
+    const validTypes = ['application/pdf', 'text/csv'];
+    if (!validTypes.includes(file.type)) {
+      toast.error('Please upload a PDF or CSV file');
+      setIsUploading(false);
+      return;
+    }
+    
+    // Simulate upload delay for testing
+    setTimeout(() => {
+      onUpload(file);
+      setIsUploading(false);
+    }, 1500);
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleButtonClick();
+  };
+
   return (
     <div className="max-w-3xl mx-auto">
-      <AnimatedCard className="p-8 border-2 border-dashed border-border rounded-xl">
+      <AnimatedCard className={`p-8 border-2 border-dashed ${dragActive ? 'border-primary bg-primary/5' : 'border-border'} rounded-xl transition-colors`}
+        onDragEnter={handleDrag}
+        onDragLeave={handleDrag}
+        onDragOver={handleDrag}
+        onDrop={handleDrop}
+      >
         <div className="text-center space-y-4">
           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
             <Upload size={28} className="text-primary" />
@@ -23,14 +89,32 @@ const UploadSection = ({ onUpload }: UploadSectionProps) => {
           </p>
           
           <div className="pt-4">
-            <form onSubmit={onUpload}>
+            <form onSubmit={handleFormSubmit}>
+              <input 
+                ref={fileInputRef}
+                type="file" 
+                className="hidden" 
+                accept=".pdf,.csv" 
+                onChange={handleChange}
+              />
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button 
-                  type="submit"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-5 py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  type="button"
+                  onClick={handleButtonClick}
+                  disabled={isUploading}
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-5 py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-70"
                 >
-                  <FileText size={18} />
-                  Upload Lab Results
+                  {isUploading ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Uploading...
+                    </>
+                  ) : (
+                    <>
+                      <FileText size={18} />
+                      Upload Lab Results
+                    </>
+                  )}
                 </button>
                 <button 
                   type="button"
