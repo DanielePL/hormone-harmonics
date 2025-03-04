@@ -168,7 +168,7 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Let's also keep the existing CSS from the original file */
+/* Form validation states */
 .form-field-validated.valid {
   border-color: rgba(34, 197, 94, 0.5);
 }
