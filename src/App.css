@@ -62,14 +62,18 @@
 
 /* Typography enhancements */
 .refined-heading {
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  font-family: 'Playfair Display', serif;
+  color: #2D3748;
 }
 
 .refined-text {
-  line-height: 1.7;
+  line-height: 1.8;
   font-weight: 400;
+  font-family: 'Nunito', sans-serif;
+  color: #4A5568;
 }
 
 /* Custom focus styles */
@@ -112,9 +116,59 @@
 
 /* Form field styling */
 .form-field-validated {
-  transition: all 0.2s ease;
+  transition: all 0.3s ease-in-out;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: #FAFAFA;
+  border: 1px solid #E2E8F0;
 }
 
+.form-field-validated:focus {
+  border-color: #A855F7;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+}
+
+/* Soft gradients */
+.soft-gradient {
+  background: linear-gradient(to right, rgba(252, 228, 236, 0.4), rgba(233, 228, 240, 0.4));
+}
+
+/* Modern Buttons */
+.modern-button {
+  background: linear-gradient(135deg, #A855F7, #EC4899);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(168, 85, 247, 0.2);
+}
+
+.modern-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Let's also keep the existing CSS from the original file */
 .form-field-validated.valid {
   border-color: rgba(34, 197, 94, 0.5);
 }
@@ -131,16 +185,6 @@
 .form-field-validated.invalid:focus {
   box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
   border-color: rgba(239, 68, 68, 0.8);
-}
-
-/* Soft gradients */
-.soft-gradient {
-  background: linear-gradient(to right, rgba(252, 228, 236, 0.4), rgba(233, 228, 240, 0.4));
-}
-
-/* Subtle transitions */
-.subtle-transition {
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Recommendation badges */
