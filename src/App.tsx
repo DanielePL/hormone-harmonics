@@ -28,6 +28,7 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile-setup" element={<ProfileSetup />} />
             <Route path="/hormone-tracker" element={<HormoneTracker />} />
+            <Route path="/hormones" element={<HormoneTracker />} />
             <Route path="/workout-tracker" element={<WorkoutTracker />} />
             <Route path="/workouts" element={<WorkoutTracker />} /> {/* Added alias route */}
             <Route path="/nutrition-tracker" element={<NutritionTracker />} />
