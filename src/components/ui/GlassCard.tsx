@@ -5,13 +5,15 @@ import { cn } from '@/lib/utils';
 interface GlassCardProps {
   children: React.ReactNode;
   className?: string;
+  interactive?: boolean;
 }
 
-const GlassCard = ({ children, className }: GlassCardProps) => {
+const GlassCard = ({ children, className, interactive = false }: GlassCardProps) => {
   return (
     <div 
       className={cn(
         "glass-card",
+        interactive && "hover:-translate-y-1 transition-all duration-300",
         className
       )}
     >
