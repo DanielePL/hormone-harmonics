@@ -1,0 +1,30 @@
+name: Deploy to Supabase
+
+on:
+  push:
+    branches:
+      - main  # Change this if you're using another branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Supabase CLI
+      run: |
+        curl -fsSL https://get.supabase.com/install | sh
+        export PATH=$HOME/.supabase/bin:$PATH
+
+    - name: Authenticate with Supabase
+      run: echo "${{ secrets.SUPABASE_ACCESS_TOKEN }}" | supabase login --access-token
+
+    - name: Deploy Supabase Functions
+      run: supabase functions deploy --project-id "${{ secrets.SUPABASE_PROJECT_ID }}"
