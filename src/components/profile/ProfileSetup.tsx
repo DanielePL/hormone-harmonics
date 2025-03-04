@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import AnimatedCard from '@/components/ui/AnimatedCard';
 import { MenopauseStatus, ActivityLevel } from '@/utils/types';
+import { FileUp, ClipboardCheck } from 'lucide-react';
 
 const ProfileSetup = () => {
   const [step, setStep] = React.useState(1);
@@ -20,6 +21,9 @@ const ProfileSetup = () => {
     menopauseStatus: 'Pre' as MenopauseStatus,
     hasMenstrualCycle: true,
     lastPeriodDate: '',
+    hasHormoneProfile: false,
+    hasLabReport: false,
+    interestedInTesting: false,
     squat: '',
     deadlift: '',
     benchPress: '',
@@ -185,6 +189,92 @@ const ProfileSetup = () => {
                     value={formData.lastPeriodDate}
                     onChange={handleInputChange}
                   />
+                </div>
+              )}
+
+              <div className="space-y-2 mt-6">
+                <Label>Do you know your hormone profile?</Label>
+                <RadioGroup 
+                  defaultValue={formData.hasHormoneProfile ? "yes" : "no"}
+                  onValueChange={(value) => handleRadioChange('hasHormoneProfile', value)}
+                  className="flex space-x-4"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="yes" id="has-hormone-yes" />
+                    <Label htmlFor="has-hormone-yes">Yes</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="no" id="has-hormone-no" />
+                    <Label htmlFor="has-hormone-no">No</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              {formData.hasHormoneProfile && (
+                <div className="space-y-2">
+                  <Label>Do you have a lab report of your hormone profile?</Label>
+                  <RadioGroup 
+                    defaultValue={formData.hasLabReport ? "yes" : "no"}
+                    onValueChange={(value) => handleRadioChange('hasLabReport', value)}
+                    className="flex space-x-4"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="yes" id="has-lab-yes" />
+                      <Label htmlFor="has-lab-yes">Yes</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="no" id="has-lab-no" />
+                      <Label htmlFor="has-lab-no">No</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+              )}
+
+              {formData.hasHormoneProfile && formData.hasLabReport && (
+                <div className="mt-4 p-4 border rounded-lg bg-primary/5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <FileUp size={20} className="text-primary" />
+                    <h4 className="font-medium">Upload Lab Results</h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Upload your hormone lab results to receive personalized workout and nutrition recommendations
+                  </p>
+                  <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+                    <FileUp size={16} />
+                    Upload Lab Report
+                  </Button>
+                </div>
+              )}
+
+              {!formData.hasHormoneProfile && (
+                <div className="space-y-2">
+                  <Label>Would you be interested in hormone testing?</Label>
+                  <RadioGroup 
+                    defaultValue={formData.interestedInTesting ? "yes" : "no"}
+                    onValueChange={(value) => handleRadioChange('interestedInTesting', value)}
+                    className="flex space-x-4"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="yes" id="testing-yes" />
+                      <Label htmlFor="testing-yes">Yes</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="no" id="testing-no" />
+                      <Label htmlFor="testing-no">No</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+              )}
+
+              {!formData.hasHormoneProfile && formData.interestedInTesting && (
+                <div className="mt-2 p-4 border rounded-lg bg-primary/5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <ClipboardCheck size={20} className="text-primary" />
+                    <h4 className="font-medium">Hormone Testing Options</h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    We offer at-home hormone testing kits or can recommend local testing facilities. We'll provide more information after you complete your profile.
+                  </p>
                 </div>
               )}
             </CardContent>

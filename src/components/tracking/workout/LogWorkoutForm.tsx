@@ -12,7 +12,10 @@ import AnimatedCard from '@/components/ui/AnimatedCard';
 import ExerciseForm from './ExerciseForm';
 
 const LogWorkoutForm = () => {
-  const [exercises, setExercises] = React.useState<Exercise[]>([{ name: '', sets: [{ weight: '', reps: '', rpe: '' }] }]);
+  const [exercises, setExercises] = React.useState<Exercise[]>([{ 
+    name: '', 
+    sets: [{ weight: undefined, reps: undefined, rpe: undefined }] 
+  }]);
   
   return (
     <AnimatedCard>

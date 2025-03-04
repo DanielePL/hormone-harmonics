@@ -3,137 +3,141 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Plus, Trash2 } from 'lucide-react';
-import { Exercise } from '@/utils/types';
+import { Exercise, ExerciseSet } from '@/utils/types';
+import { PlusCircle, Trash2 } from 'lucide-react';
 
 interface ExerciseFormProps {
   exercises: Exercise[];
   setExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
 }
 
-const ExerciseForm = ({ exercises, setExercises }: ExerciseFormProps) => {
+const ExerciseForm: React.FC<ExerciseFormProps> = ({ exercises, setExercises }) => {
   const addExercise = () => {
-    setExercises([...exercises, { name: '', sets: [{ weight: '', reps: '', rpe: '' }] }]);
+    setExercises([...exercises, { name: '', sets: [{ weight: undefined, reps: undefined, rpe: undefined }] }]);
   };
 
   const removeExercise = (index: number) => {
-    const newExercises = [...exercises];
-    newExercises.splice(index, 1);
-    setExercises(newExercises);
+    const updatedExercises = [...exercises];
+    updatedExercises.splice(index, 1);
+    setExercises(updatedExercises);
   };
 
   const addSet = (exerciseIndex: number) => {
-    const newExercises = [...exercises];
-    newExercises[exerciseIndex].sets.push({ weight: '', reps: '', rpe: '' });
-    setExercises(newExercises);
+    const updatedExercises = [...exercises];
+    updatedExercises[exerciseIndex].sets.push({ weight: undefined, reps: undefined, rpe: undefined });
+    setExercises(updatedExercises);
   };
 
   const removeSet = (exerciseIndex: number, setIndex: number) => {
-    const newExercises = [...exercises];
-    newExercises[exerciseIndex].sets.splice(setIndex, 1);
-    setExercises(newExercises);
+    const updatedExercises = [...exercises];
+    updatedExercises[exerciseIndex].sets.splice(setIndex, 1);
+    setExercises(updatedExercises);
   };
 
-  const handleExerciseNameChange = (index: number, value: string) => {
-    const newExercises = [...exercises];
-    newExercises[index].name = value;
-    setExercises(newExercises);
+  const handleExerciseChange = (exerciseIndex: number, field: string, value: string) => {
+    const updatedExercises = [...exercises];
+    updatedExercises[exerciseIndex] = { ...updatedExercises[exerciseIndex], [field]: value };
+    setExercises(updatedExercises);
   };
 
-  const handleSetChange = (exerciseIndex: number, setIndex: number, field: string, value: string) => {
-    const newExercises = [...exercises];
-    (newExercises[exerciseIndex].sets[setIndex] as any)[field] = value;
-    setExercises(newExercises);
+  const handleSetChange = (exerciseIndex: number, setIndex: number, field: keyof ExerciseSet, value: string) => {
+    const updatedExercises = [...exercises];
+    const numValue = value === '' ? undefined : Number(value);
+    updatedExercises[exerciseIndex].sets[setIndex] = {
+      ...updatedExercises[exerciseIndex].sets[setIndex],
+      [field]: numValue
+    };
+    setExercises(updatedExercises);
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
         <h3 className="text-lg font-medium">Exercises</h3>
-        <Button variant="outline" size="sm" onClick={addExercise}>
-          <Plus className="w-4 h-4 mr-2" />
+        <Button type="button" variant="outline" size="sm" onClick={addExercise} className="flex items-center gap-1">
+          <PlusCircle size={16} />
           Add Exercise
         </Button>
       </div>
-      
+
       {exercises.map((exercise, exerciseIndex) => (
-        <div key={exerciseIndex} className="space-y-4 border rounded-lg p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex-1 mr-4">
-              <Label htmlFor={`exercise-${exerciseIndex}`} className="mb-2 block">
-                Exercise Name
-              </Label>
-              <Input 
-                id={`exercise-${exerciseIndex}`} 
-                value={exercise.name} 
-                onChange={(e) => handleExerciseNameChange(exerciseIndex, e.target.value)}
-                placeholder="e.g., Barbell Squat" 
+        <div key={exerciseIndex} className="border rounded-md p-4 space-y-4">
+          <div className="flex justify-between items-center">
+            <div className="w-full">
+              <Label htmlFor={`exercise-${exerciseIndex}`}>Exercise Name</Label>
+              <Input
+                id={`exercise-${exerciseIndex}`}
+                value={exercise.name}
+                onChange={(e) => handleExerciseChange(exerciseIndex, 'name', e.target.value)}
+                placeholder="e.g., Squat, Bench Press, etc."
+                className="mt-1"
               />
             </div>
             <Button 
-              variant="outline" 
-              size="icon" 
-              className="h-8 w-8" 
+              type="button" 
+              variant="ghost" 
+              size="sm" 
               onClick={() => removeExercise(exerciseIndex)}
+              className="ml-2"
             >
-              <Trash2 className="h-4 w-4" />
+              <Trash2 size={16} />
             </Button>
           </div>
-          
+
           <div className="space-y-2">
-            <div className="grid grid-cols-4 gap-2">
-              <div className="text-sm font-medium">Set</div>
-              <div className="text-sm font-medium">Weight (kg)</div>
-              <div className="text-sm font-medium">Reps</div>
-              <div className="text-sm font-medium">RPE</div>
+            <div className="grid grid-cols-4 gap-2 font-medium text-sm">
+              <div>Set</div>
+              <div>Weight (kg)</div>
+              <div>Reps</div>
+              <div>RPE (1-10)</div>
             </div>
             
             {exercise.sets.map((set, setIndex) => (
               <div key={setIndex} className="grid grid-cols-4 gap-2 items-center">
-                <div className="text-sm font-medium">{setIndex + 1}</div>
-                <Input 
-                  type="number" 
-                  value={set.weight} 
+                <div>{setIndex + 1}</div>
+                <Input
+                  type="number"
+                  value={set.weight === undefined ? '' : set.weight}
                   onChange={(e) => handleSetChange(exerciseIndex, setIndex, 'weight', e.target.value)}
                   placeholder="kg"
-                  className="h-8"
                 />
-                <Input 
-                  type="number" 
-                  value={set.reps} 
+                <Input
+                  type="number"
+                  value={set.reps === undefined ? '' : set.reps}
                   onChange={(e) => handleSetChange(exerciseIndex, setIndex, 'reps', e.target.value)}
                   placeholder="reps"
-                  className="h-8"
                 />
-                <div className="flex gap-2">
-                  <Input 
-                    type="number" 
-                    value={set.rpe} 
+                <div className="flex items-center">
+                  <Input
+                    type="number"
+                    min="1"
+                    max="10"
+                    value={set.rpe === undefined ? '' : set.rpe}
                     onChange={(e) => handleSetChange(exerciseIndex, setIndex, 'rpe', e.target.value)}
                     placeholder="1-10"
-                    className="h-8"
                   />
-                  {exercise.sets.length > 1 && (
-                    <Button 
-                      variant="outline" 
-                      size="icon" 
-                      className="h-8 w-8" 
-                      onClick={() => removeSet(exerciseIndex, setIndex)}
-                    >
-                      <Trash2 className="h-3 w-3" />
-                    </Button>
-                  )}
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removeSet(exerciseIndex, setIndex)}
+                    className="ml-1"
+                    disabled={exercise.sets.length <= 1}
+                  >
+                    <Trash2 size={14} />
+                  </Button>
                 </div>
               </div>
             ))}
             
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="mt-2" 
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
               onClick={() => addSet(exerciseIndex)}
+              className="mt-2 w-full flex items-center justify-center gap-1"
             >
-              <Plus className="w-4 h-4 mr-2" />
+              <PlusCircle size={14} />
               Add Set
             </Button>
           </div>
