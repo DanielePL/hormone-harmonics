@@ -22,14 +22,14 @@ interface ResultsStepProps {
 
 const ResultsStep = ({ symptoms, handleComplete }: ResultsStepProps) => {
   return (
-    <Card className="border-none shadow-md font-serif">
+    <Card className="border-none shadow-md">
       <CardHeader className="bg-gradient-to-r from-rose-50 to-teal-50 pb-6">
         <div className="flex items-start gap-3">
           <div className="p-2 bg-primary rounded-full shadow-sm">
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <div>
-            <CardTitle className="text-xl tracking-tight font-serif">Your AI-Generated Results</CardTitle>
+            <CardTitle className="text-xl tracking-tight font-display">Your AI-Generated Results</CardTitle>
             <CardDescription className="mt-1 text-base">
               Based on your responses, we've created your personalized plan
             </CardDescription>
@@ -45,7 +45,7 @@ const ResultsStep = ({ symptoms, handleComplete }: ResultsStepProps) => {
           <Button 
             variant="link" 
             onClick={handleComplete}
-            className="text-muted-foreground"
+            className="text-muted-foreground font-sans"
           >
             Skip for now and explore the dashboard
           </Button>
