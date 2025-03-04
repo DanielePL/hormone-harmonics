@@ -10,7 +10,7 @@ import { Separator } from '@/components/ui/separator';
 import { Exercise } from '@/utils/types';
 import AnimatedCard from '@/components/ui/AnimatedCard';
 import ExerciseForm from './ExerciseForm';
-import { Calendar, FileSparkles } from 'lucide-react';
+import { Calendar, Sparkles } from 'lucide-react';
 
 const LogWorkoutForm = () => {
   const [exercises, setExercises] = React.useState<Exercise[]>([{ 
@@ -24,7 +24,7 @@ const LogWorkoutForm = () => {
         <CardHeader className="bg-gradient-to-r from-rose-50 to-purple-50 pb-6">
           <div className="flex items-start gap-3">
             <div className="p-2 bg-white rounded-full shadow-sm">
-              <FileSparkles className="w-5 h-5 text-primary" />
+              <Sparkles className="w-5 h-5 text-primary" />
             </div>
             <div>
               <CardTitle className="text-xl tracking-tight">Log Your Workout</CardTitle>
