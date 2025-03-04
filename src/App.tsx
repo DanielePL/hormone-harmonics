@@ -24,12 +24,13 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/" element={<Layout />}>
+          <Route element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile-setup" element={<ProfileSetup />} />
             <Route path="/hormone-tracker" element={<HormoneTracker />} />
             <Route path="/workout-tracker" element={<WorkoutTracker />} />
             <Route path="/nutrition-tracker" element={<NutritionTracker />} />
+            <Route path="/nutrition" element={<NutritionTracker />} />
             <Route path="/blood-test-analysis" element={<BloodTestAnalysis />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
