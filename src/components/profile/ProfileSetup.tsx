@@ -1,18 +1,33 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from "@/hooks/use-toast";
 import AnimatedCard from '@/components/ui/AnimatedCard';
+import StepIndicator from './StepIndicator';
 import { MenopauseStatus, ActivityLevel } from '@/utils/types';
-import { FileUp, ClipboardCheck } from 'lucide-react';
+import { 
+  User, 
+  CalendarDays, 
+  FileUp, 
+  ClipboardCheck, 
+  Activity, 
+  ArrowRight, 
+  ArrowLeft, 
+  Check 
+} from 'lucide-react';
 
 const ProfileSetup = () => {
-  const [step, setStep] = React.useState(1);
-  const [formData, setFormData] = React.useState({
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
     name: '',
     age: '',
     weight: '',
@@ -45,36 +60,72 @@ const ProfileSetup = () => {
   };
 
   const nextStep = () => setStep(prev => prev + 1);
+  
   const prevStep = () => setStep(prev => prev - 1);
+  
+  const handleComplete = () => {
+    toast({
+      title: "Profile Created Successfully",
+      description: "Your personalized journey begins now!",
+      duration: 5000,
+    });
+    
+    // Navigate to dashboard after completion
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 1500);
+  };
+
+  const stepLabels = ["About You", "Hormonal Health", "Strength Profile"];
 
   return (
-    <div className="max-w-2xl mx-auto py-8">
-      <h1 className="text-3xl font-bold tracking-tight mb-6 text-center">Create Your Profile</h1>
-      <p className="text-muted-foreground text-center mb-8">
-        Let's personalize your experience to provide the most accurate hormone and fitness insights
-      </p>
+    <div className="max-w-2xl mx-auto py-8 px-4 sm:px-0">
+      <div className="text-center mb-10">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground mb-2">
+          Create Your Profile
+        </h1>
+        <p className="text-muted-foreground max-w-md mx-auto">
+          Let's personalize your experience to provide the most accurate hormone and fitness insights
+        </p>
+      </div>
+
+      <StepIndicator 
+        currentStep={step} 
+        totalSteps={3} 
+        labels={stepLabels}
+      />
 
       {step === 1 && (
         <AnimatedCard>
-          <Card>
-            <CardHeader>
-              <CardTitle>Personal Information</CardTitle>
-              <CardDescription>Tell us about yourself so we can personalize your experience</CardDescription>
+          <Card className="border-none shadow-md">
+            <CardHeader className="bg-gradient-to-r from-rose-100/70 to-pink-100/70 pb-6">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-white rounded-full shadow-sm">
+                  <User className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl tracking-tight">Personal Information</CardTitle>
+                  <CardDescription className="mt-1 text-base">
+                    Tell us about yourself so we can personalize your experience
+                  </CardDescription>
+                </div>
+              </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-5 pt-6">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name" className="text-sm font-medium">Your Name</Label>
                 <Input 
                   id="name" 
                   name="name" 
                   placeholder="Enter your name" 
                   value={formData.name}
                   onChange={handleInputChange}
+                  className="bg-background/50"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="age">Age</Label>
+                <Label htmlFor="age" className="text-sm font-medium">Age</Label>
                 <Input 
                   id="age" 
                   name="age" 
@@ -82,12 +133,13 @@ const ProfileSetup = () => {
                   placeholder="Enter your age" 
                   value={formData.age}
                   onChange={handleInputChange}
+                  className="bg-background/50"
                 />
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="weight">Weight (kg)</Label>
+                  <Label htmlFor="weight" className="text-sm font-medium">Weight (kg)</Label>
                   <Input 
                     id="weight" 
                     name="weight" 
@@ -95,10 +147,11 @@ const ProfileSetup = () => {
                     placeholder="Weight in kg" 
                     value={formData.weight}
                     onChange={handleInputChange}
+                    className="bg-background/50"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="height">Height (cm)</Label>
+                  <Label htmlFor="height" className="text-sm font-medium">Height (cm)</Label>
                   <Input 
                     id="height" 
                     name="height" 
@@ -106,17 +159,18 @@ const ProfileSetup = () => {
                     placeholder="Height in cm" 
                     value={formData.height}
                     onChange={handleInputChange}
+                    className="bg-background/50"
                   />
                 </div>
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="activityLevel">Activity Level</Label>
+                <Label htmlFor="activityLevel" className="text-sm font-medium">Activity Level</Label>
                 <Select 
                   value={formData.activityLevel} 
                   onValueChange={(value) => handleSelectChange('activityLevel', value)}
                 >
-                  <SelectTrigger id="activityLevel">
+                  <SelectTrigger id="activityLevel" className="bg-background/50">
                     <SelectValue placeholder="Select your activity level" />
                   </SelectTrigger>
                   <SelectContent>
@@ -129,8 +183,14 @@ const ProfileSetup = () => {
                 </Select>
               </div>
             </CardContent>
-            <CardFooter className="flex justify-end">
-              <Button onClick={nextStep}>Continue</Button>
+            <CardFooter className="flex justify-end pt-2 pb-6 px-6">
+              <Button 
+                onClick={nextStep} 
+                className="px-5 gap-2"
+                size="lg"
+              >
+                Continue <ArrowRight size={16} />
+              </Button>
             </CardFooter>
           </Card>
         </AnimatedCard>
@@ -138,19 +198,28 @@ const ProfileSetup = () => {
 
       {step === 2 && (
         <AnimatedCard>
-          <Card>
-            <CardHeader>
-              <CardTitle>Hormonal Health Information</CardTitle>
-              <CardDescription>This helps us provide personalized insights for your hormonal health</CardDescription>
+          <Card className="border-none shadow-md">
+            <CardHeader className="bg-gradient-to-r from-rose-100/70 to-pink-100/70 pb-6">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-white rounded-full shadow-sm">
+                  <Activity className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl tracking-tight">Hormonal Health</CardTitle>
+                  <CardDescription className="mt-1 text-base">
+                    Helping us understand your hormonal journey
+                  </CardDescription>
+                </div>
+              </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-5 pt-6">
               <div className="space-y-2">
-                <Label>Menopause Status</Label>
+                <Label className="text-sm font-medium">Menopause Status</Label>
                 <Select 
                   value={formData.menopauseStatus} 
                   onValueChange={(value) => handleSelectChange('menopauseStatus', value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-background/50">
                     <SelectValue placeholder="Select your menopause status" />
                   </SelectTrigger>
                   <SelectContent>
@@ -162,7 +231,7 @@ const ProfileSetup = () => {
               </div>
               
               <div className="space-y-2">
-                <Label>Do you still have a menstrual cycle?</Label>
+                <Label className="text-sm font-medium">Do you still have a menstrual cycle?</Label>
                 <RadioGroup 
                   defaultValue={formData.hasMenstrualCycle ? "yes" : "no"}
                   onValueChange={(value) => handleRadioChange('hasMenstrualCycle', value)}
@@ -181,19 +250,23 @@ const ProfileSetup = () => {
               
               {formData.hasMenstrualCycle && (
                 <div className="space-y-2">
-                  <Label htmlFor="lastPeriodDate">Date of Last Period</Label>
-                  <Input 
-                    id="lastPeriodDate" 
-                    name="lastPeriodDate" 
-                    type="date" 
-                    value={formData.lastPeriodDate}
-                    onChange={handleInputChange}
-                  />
+                  <Label htmlFor="lastPeriodDate" className="text-sm font-medium">Date of Last Period</Label>
+                  <div className="relative">
+                    <Input 
+                      id="lastPeriodDate" 
+                      name="lastPeriodDate" 
+                      type="date" 
+                      value={formData.lastPeriodDate}
+                      onChange={handleInputChange}
+                      className="pl-10 bg-background/50"
+                    />
+                    <CalendarDays className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground" />
+                  </div>
                 </div>
               )}
 
-              <div className="space-y-2 mt-6">
-                <Label>Do you know your hormone profile?</Label>
+              <div className="space-y-2 mt-4">
+                <Label className="text-sm font-medium">Do you know your hormone profile?</Label>
                 <RadioGroup 
                   defaultValue={formData.hasHormoneProfile ? "yes" : "no"}
                   onValueChange={(value) => handleRadioChange('hasHormoneProfile', value)}
@@ -212,7 +285,7 @@ const ProfileSetup = () => {
 
               {formData.hasHormoneProfile && (
                 <div className="space-y-2">
-                  <Label>Do you have a lab report of your hormone profile?</Label>
+                  <Label className="text-sm font-medium">Do you have a lab report of your hormone profile?</Label>
                   <RadioGroup 
                     defaultValue={formData.hasLabReport ? "yes" : "no"}
                     onValueChange={(value) => handleRadioChange('hasLabReport', value)}
@@ -231,7 +304,7 @@ const ProfileSetup = () => {
               )}
 
               {formData.hasHormoneProfile && formData.hasLabReport && (
-                <div className="mt-4 p-4 border rounded-lg bg-primary/5">
+                <div className="mt-4 p-4 border rounded-lg bg-rose-50/50">
                   <div className="flex items-center gap-2 mb-2">
                     <FileUp size={20} className="text-primary" />
                     <h4 className="font-medium">Upload Lab Results</h4>
@@ -239,7 +312,7 @@ const ProfileSetup = () => {
                   <p className="text-sm text-muted-foreground mb-3">
                     Upload your hormone lab results to receive personalized workout and nutrition recommendations
                   </p>
-                  <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+                  <Button variant="outline" className="w-full flex items-center justify-center gap-2 bg-white">
                     <FileUp size={16} />
                     Upload Lab Report
                   </Button>
@@ -248,7 +321,7 @@ const ProfileSetup = () => {
 
               {!formData.hasHormoneProfile && (
                 <div className="space-y-2">
-                  <Label>Would you be interested in hormone testing?</Label>
+                  <Label className="text-sm font-medium">Would you be interested in hormone testing?</Label>
                   <RadioGroup 
                     defaultValue={formData.interestedInTesting ? "yes" : "no"}
                     onValueChange={(value) => handleRadioChange('interestedInTesting', value)}
@@ -267,7 +340,7 @@ const ProfileSetup = () => {
               )}
 
               {!formData.hasHormoneProfile && formData.interestedInTesting && (
-                <div className="mt-2 p-4 border rounded-lg bg-primary/5">
+                <div className="mt-2 p-4 border rounded-lg bg-rose-50/50">
                   <div className="flex items-center gap-2 mb-2">
                     <ClipboardCheck size={20} className="text-primary" />
                     <h4 className="font-medium">Hormone Testing Options</h4>
@@ -278,9 +351,21 @@ const ProfileSetup = () => {
                 </div>
               )}
             </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={prevStep}>Back</Button>
-              <Button onClick={nextStep}>Continue</Button>
+            <CardFooter className="flex justify-between pt-2 pb-6 px-6">
+              <Button 
+                variant="outline" 
+                onClick={prevStep}
+                className="gap-2"
+              >
+                <ArrowLeft size={16} /> Back
+              </Button>
+              <Button 
+                onClick={nextStep}
+                className="px-5 gap-2"
+                size="lg"
+              >
+                Continue <ArrowRight size={16} />
+              </Button>
             </CardFooter>
           </Card>
         </AnimatedCard>
@@ -288,15 +373,31 @@ const ProfileSetup = () => {
 
       {step === 3 && (
         <AnimatedCard>
-          <Card>
-            <CardHeader>
-              <CardTitle>Strength Levels</CardTitle>
-              <CardDescription>Share your current strength levels to help us personalize your workout recommendations</CardDescription>
+          <Card className="border-none shadow-md">
+            <CardHeader className="bg-gradient-to-r from-rose-100/70 to-pink-100/70 pb-6">
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-white rounded-full shadow-sm">
+                  <Activity className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-xl tracking-tight">Strength Profile</CardTitle>
+                  <CardDescription className="mt-1 text-base">
+                    Share your current strength levels for personalized recommendations
+                  </CardDescription>
+                </div>
+              </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-5 pt-6">
+              <div className="bg-muted/20 p-4 rounded-lg mb-4">
+                <p className="text-sm text-muted-foreground">
+                  These fields are optional. If you don't know your current strength levels, you can leave them blank
+                  and update later. We'll use this information to create personalized workout programs.
+                </p>
+              </div>
+              
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="squat">Squat (kg)</Label>
+                  <Label htmlFor="squat" className="text-sm font-medium">Squat (kg)</Label>
                   <Input 
                     id="squat" 
                     name="squat" 
@@ -304,10 +405,11 @@ const ProfileSetup = () => {
                     placeholder="Optional" 
                     value={formData.squat}
                     onChange={handleInputChange}
+                    className="bg-background/50"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="deadlift">Deadlift (kg)</Label>
+                  <Label htmlFor="deadlift" className="text-sm font-medium">Deadlift (kg)</Label>
                   <Input 
                     id="deadlift" 
                     name="deadlift" 
@@ -315,13 +417,14 @@ const ProfileSetup = () => {
                     placeholder="Optional" 
                     value={formData.deadlift}
                     onChange={handleInputChange}
+                    className="bg-background/50"
                   />
                 </div>
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="benchPress">Bench Press (kg)</Label>
+                  <Label htmlFor="benchPress" className="text-sm font-medium">Bench Press (kg)</Label>
                   <Input 
                     id="benchPress" 
                     name="benchPress" 
@@ -329,10 +432,11 @@ const ProfileSetup = () => {
                     placeholder="Optional" 
                     value={formData.benchPress}
                     onChange={handleInputChange}
+                    className="bg-background/50"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="overhead">Overhead Press (kg)</Label>
+                  <Label htmlFor="overhead" className="text-sm font-medium">Overhead Press (kg)</Label>
                   <Input 
                     id="overhead" 
                     name="overhead" 
@@ -340,12 +444,13 @@ const ProfileSetup = () => {
                     placeholder="Optional" 
                     value={formData.overhead}
                     onChange={handleInputChange}
+                    className="bg-background/50"
                   />
                 </div>
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="rowWeight">Row (kg)</Label>
+                <Label htmlFor="rowWeight" className="text-sm font-medium">Row (kg)</Label>
                 <Input 
                   id="rowWeight" 
                   name="rowWeight" 
@@ -353,24 +458,38 @@ const ProfileSetup = () => {
                   placeholder="Optional" 
                   value={formData.rowWeight}
                   onChange={handleInputChange}
+                  className="bg-background/50"
+                />
+              </div>
+              
+              <div className="space-y-2 mt-4">
+                <Label htmlFor="notes" className="text-sm font-medium">Additional Notes (Optional)</Label>
+                <Textarea 
+                  id="notes" 
+                  placeholder="Any other information you'd like us to know about your fitness journey?"
+                  className="resize-none bg-background/50 h-20"
                 />
               </div>
             </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={prevStep}>Back</Button>
-              <Button>Complete Profile</Button>
+            <CardFooter className="flex justify-between pt-2 pb-6 px-6">
+              <Button 
+                variant="outline" 
+                onClick={prevStep}
+                className="gap-2"
+              >
+                <ArrowLeft size={16} /> Back
+              </Button>
+              <Button 
+                onClick={handleComplete}
+                className="px-5 gap-2 bg-primary"
+                size="lg"
+              >
+                Complete Profile <Check size={16} />
+              </Button>
             </CardFooter>
           </Card>
         </AnimatedCard>
       )}
-      
-      <div className="flex justify-center mt-6">
-        <div className="flex gap-2">
-          <div className={`w-3 h-3 rounded-full ${step === 1 ? 'bg-primary' : 'bg-muted'}`}></div>
-          <div className={`w-3 h-3 rounded-full ${step === 2 ? 'bg-primary' : 'bg-muted'}`}></div>
-          <div className={`w-3 h-3 rounded-full ${step === 3 ? 'bg-primary' : 'bg-muted'}`}></div>
-        </div>
-      </div>
     </div>
   );
 };
