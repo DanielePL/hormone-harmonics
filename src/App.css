@@ -5,32 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hormone Harmonics</title>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-    
-    <!-- Existing App CSS -->
-    <link rel="stylesheet" href="app.css">
+    <!-- Softer, more nurturing fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Hormone Harmonics Form Specific Styles */
+        body {
+            background: linear-gradient(135deg, #f5e6d3 0%, #f0d0b7 100%);
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+
         .hormone-harmonics-form {
-            max-width: 600px;
-            margin: 2rem auto;
-            background-color: #FAFAFA;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
         }
 
         .hormone-harmonics-form h1 {
-            font-family: 'Playfair Display', serif;
-            color: #2D3748;
+            font-family: 'Merriweather', serif;
+            color: #8B4513;
             text-align: center;
             margin-bottom: 1.5rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #A855F7, #EC4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .hormone-harmonics-form .form-group {
@@ -40,94 +47,103 @@
         .hormone-harmonics-form label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #4A5568;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 500;
+            color: #6B4423;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
-        .hormone-harmonics-form input {
+        .hormone-harmonics-form input,
+        .hormone-harmonics-form textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #E2E8F0;
-            border-radius: 8px;
-            background-color: white;
+            border: 1px solid #D7BCA0;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            font-family: 'Quicksand', sans-serif;
             transition: all 0.3s ease;
         }
 
-        .hormone-harmonics-form input:focus {
-            border-color: #A855F7;
+        .hormone-harmonics-form input:focus,
+        .hormone-harmonics-form textarea:focus {
             outline: none;
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+            border-color: #8B4513;
+            box-shadow: 0 0 10px rgba(139, 69, 19, 0.2);
+        }
+
+        .hormone-harmonics-form textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
         .hormone-harmonics-form .submit-btn {
-            background: linear-gradient(135deg, #A855F7, #EC4899);
-            color: white;
+            background: linear-gradient(135deg, #8B4513, #D2691E);
+            color: #FFF5E1;
             border: none;
             padding: 12px 24px;
-            border-radius: 8px;
+            border-radius: 10px;
             width: 100%;
             margin-top: 1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-family: 'Quicksand', sans-serif;
         }
 
         .hormone-harmonics-form .submit-btn:hover {
-            opacity: 0.9;
+            background: linear-gradient(135deg, #6B4423, #B8860B);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .hormone-harmonics-form {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="root">
-        <form class="hormone-harmonics-form gentle-animation">
-            <h1>Hormone Harmonics</h1>
-            
-            <div class="form-group">
-                <label for="date">Date</label>
-                <input type="date" id="date" name="date" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="estrogen">Estrogen (pg/mL)</label>
-                <input type="number" id="estrogen" name="estrogen" placeholder="e.g., 100" step="0.1">
-            </div>
-            
-            <div class="form-group">
-                <label for="progesterone">Progesterone (ng/mL)</label>
-                <input type="number" id="progesterone" name="progesterone" placeholder="e.g., 5" step="0.1">
-            </div>
-            
-            <div class="form-group">
-                <label for="testosterone">Testosterone (ng/dL)</label>
-                <input type="number" id="testosterone" name="testosterone" placeholder="e.g., 40" step="0.1">
-            </div>
-            
-            <div class="form-group">
-                <label for="cortisol">Cortisol (μg/dL)</label>
-                <input type="number" id="cortisol" name="cortisol" placeholder="e.g., 15" step="0.1">
-            </div>
-            
-            <div class="form-group">
-                <label for="tsh">TSH (mIU/L)</label>
-                <input type="number" id="tsh" name="tsh" placeholder="e.g., 2.5" step="0.1">
-            </div>
-            
-            <div class="form-group">
-                <label for="notes">Notes</label>
-                <textarea id="notes" name="notes" placeholder="Additional observations..."></textarea>
-            </div>
-            
-            <button type="submit" class="submit-btn">Submit Hormone Data</button>
-        </form>
-    </div>
-
-    <script>
-        // Optional: Basic form validation
-        document.querySelector('.hormone-harmonics-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Here you could add form submission logic
-            alert('Form submitted! (Note: This is a placeholder)');
-        });
-    </script>
+    <form class="hormone-harmonics-form">
+        <h1>Hormone Harmonics</h1>
+        
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="estrogen">Estrogen (pg/mL)</label>
+            <input type="number" id="estrogen" name="estrogen" placeholder="e.g., 100" step="0.1">
+        </div>
+        
+        <div class="form-group">
+            <label for="progesterone">Progesterone (ng/mL)</label>
+            <input type="number" id="progesterone" name="progesterone" placeholder="e.g., 5" step="0.1">
+        </div>
+        
+        <div class="form-group">
+            <label for="testosterone">Testosterone (ng/dL)</label>
+            <input type="number" id="testosterone" name="testosterone" placeholder="e.g., 40" step="0.1">
+        </div>
+        
+        <div class="form-group">
+            <label for="cortisol">Cortisol (μg/dL)</label>
+            <input type="number" id="cortisol" name="cortisol" placeholder="e.g., 15" step="0.1">
+        </div>
+        
+        <div class="form-group">
+            <label for="tsh">TSH (mIU/L)</label>
+            <input type="number" id="tsh" name="tsh" placeholder="e.g., 2.5" step="0.1">
+        </div>
+        
+        <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" placeholder="Additional observations..."></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Submit Hormone Data</button>
+    </form>
 </body>
 </html>
