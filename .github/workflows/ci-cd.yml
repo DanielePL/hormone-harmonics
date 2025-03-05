@@ -13,11 +13,13 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Install Supabase CLI
-      run: |
-        curl -L "https://github.com/supabase/cli/releases/latest/download/supabase-linux-amd64" -o /usr/local/bin/supabase
-        chmod +x /usr/local/bin/supabase
-        ls -lh /usr/local/bin/supabase  # Verify file size (should be ~8MB)
+   - name: Install Supabase CLI (Linux)
+  run: |
+    curl -L "https://github.com/supabase/cli/releases/latest/download/supabase-linux-amd64" -o supabase
+    chmod +x supabase
+    sudo mv supabase /usr/local/bin/supabase
+    ls -lh /usr/local/bin/supabase  # Verify file size (~8MB expected)
+
 
     - name: Verify Supabase CLI Installation
       run: /usr/local/bin/supabase --version  # Ensure it's installed correctly
