@@ -13,8 +13,7 @@
             --primary-pink: #FF1493;
             --light-pink: #FFB6C1;
             --soft-white: #E0E0E0;
-            --dark-background: #121212;
-            --medium-gray: #1E1E1E;
+            --dark-background: #000000;
         }
 
         body {
@@ -31,7 +30,8 @@
         }
 
         .hormone-harmonics-form {
-            background-color: var(--dark-background);
+            background-color: #000000;
+            border: 1px solid #333;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             padding: 2.5rem;
@@ -63,14 +63,14 @@
             padding: 12px;
             border: 1px solid #333;
             border-radius: 10px;
-            background-color: #1E1E1E;
+            background-color: #000000;
             color: var(--soft-white);
             transition: all 0.3s ease;
         }
 
         .hormone-harmonics-form input::placeholder,
         .hormone-harmonics-form textarea::placeholder {
-            color: #888;
+            color: #666;
         }
 
         .hormone-harmonics-form input:focus,
