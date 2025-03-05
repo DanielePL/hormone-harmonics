@@ -19,9 +19,10 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Arial', 'Source Sans Pro', 'system-ui', 'sans-serif'],
-				serif: ['Georgia', 'Lora', 'serif'],
-				display: ['Georgia', 'Playfair Display', 'serif'],
+				sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+				serif: ['Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+				display: ['Georgia', 'Cambria', 'serif'],
+				mono: ['SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
