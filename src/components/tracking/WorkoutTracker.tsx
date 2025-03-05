@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import LogWorkoutForm from './workout/LogWorkoutForm';
 import ProgressTracker from './workout/ProgressTracker';
 import WorkoutPlanSection from './workout/WorkoutPlanSection';
+import AIWorkoutAssistant from './workout/AIWorkoutAssistant';
 import { UserProfile } from '@/utils/types';
 
 const WorkoutTracker = () => {
@@ -31,10 +32,11 @@ const WorkoutTracker = () => {
       </div>
 
       <Tabs defaultValue="log" className="w-full">
-        <TabsList className="grid w-full max-w-md grid-cols-3 mb-6">
+        <TabsList className="grid w-full max-w-md grid-cols-4 mb-6">
           <TabsTrigger value="log" className="text-base">Log Workout</TabsTrigger>
           <TabsTrigger value="plan" className="text-base">My Plan</TabsTrigger>
           <TabsTrigger value="progress" className="text-base">Progress</TabsTrigger>
+          <TabsTrigger value="ai" className="text-base">AI Coach</TabsTrigger>
         </TabsList>
         
         <TabsContent value="log" className="mt-6 space-y-6">
@@ -47,6 +49,10 @@ const WorkoutTracker = () => {
         
         <TabsContent value="progress" className="mt-6">
           <ProgressTracker />
+        </TabsContent>
+        
+        <TabsContent value="ai" className="mt-6">
+          <AIWorkoutAssistant userProfile={userProfile} />
         </TabsContent>
       </Tabs>
     </div>
