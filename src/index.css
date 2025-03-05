@@ -11,10 +11,10 @@
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
+    --background: 5 44% 89%;
     --foreground: 0 0% 100%;
 
-    --card: 0 0% 0%;
+    --card: 5 44% 89%;
     --card-foreground: 0 0% 100%;
 
     --popover: 0 0% 100%;
@@ -41,7 +41,7 @@
 
     --radius: 1rem;
 
-    --sidebar-background: 0 0% 0%;
+    --sidebar-background: 5 44% 89%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 340 82% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
