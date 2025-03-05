@@ -5,39 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hormone Harmonics</title>
     
-    <!-- Softer, more nurturing fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --primary-pink: #FF1493;
+            --light-pink: #FFB6C1;
+            --soft-purple: #E6E6FA;
+            --text-dark: #2C3E50;
+        }
+
         body {
-            background: linear-gradient(135deg, #f5e6d3 0%, #f0d0b7 100%);
-            font-family: 'Quicksand', sans-serif;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #FFF0F5 0%, #F5F5F5 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0;
-            color: #4a4a4a;
-            line-height: 1.6;
+            padding: 1rem;
         }
 
         .hormone-harmonics-form {
-            background: rgba(255, 255, 255, 0.85);
+            background: white;
             border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 2.5rem;
             width: 100%;
             max-width: 500px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
         }
 
         .hormone-harmonics-form h1 {
-            font-family: 'Merriweather', serif;
-            color: #8B4513;
+            color: var(--primary-pink);
             text-align: center;
             margin-bottom: 1.5rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
         }
 
         .hormone-harmonics-form .form-group {
@@ -47,27 +52,25 @@
         .hormone-harmonics-form label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #6B4423;
+            color: var(--text-dark);
             font-weight: 600;
-            font-size: 0.9rem;
         }
 
         .hormone-harmonics-form input,
         .hormone-harmonics-form textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #D7BCA0;
+            border: 1px solid var(--light-pink);
             border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.7);
-            font-family: 'Quicksand', sans-serif;
+            background-color: #FAFAFA;
             transition: all 0.3s ease;
         }
 
         .hormone-harmonics-form input:focus,
         .hormone-harmonics-form textarea:focus {
             outline: none;
-            border-color: #8B4513;
-            box-shadow: 0 0 10px rgba(139, 69, 19, 0.2);
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.2);
         }
 
         .hormone-harmonics-form textarea {
@@ -76,8 +79,8 @@
         }
 
         .hormone-harmonics-form .submit-btn {
-            background: linear-gradient(135deg, #8B4513, #D2691E);
-            color: #FFF5E1;
+            background: var(--primary-pink);
+            color: white;
             border: none;
             padding: 12px 24px;
             border-radius: 10px;
@@ -86,16 +89,14 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'Quicksand', sans-serif;
         }
 
         .hormone-harmonics-form .submit-btn:hover {
-            background: linear-gradient(135deg, #6B4423, #B8860B);
+            background: #FF69B4;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
         }
 
-        /* Responsive adjustments */
         @media (max-width: 600px) {
             .hormone-harmonics-form {
                 margin: 1rem;
