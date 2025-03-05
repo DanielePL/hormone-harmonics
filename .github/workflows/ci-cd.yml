@@ -3,7 +3,7 @@ name: Deploy to Supabase
 on:
   push:
     branches:
-      - main  # Change this if using a different branch
+      - main  # Falls du eine andere Branch nutzt, ändere sie hier
 
 jobs:
   deploy:
@@ -13,16 +13,15 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
-   - name: Install Supabase CLI (Linux)
-  run: |
-    curl -L "https://github.com/supabase/cli/releases/latest/download/supabase-linux-amd64" -o supabase
-    chmod +x supabase
-    sudo mv supabase /usr/local/bin/supabase
-    ls -lh /usr/local/bin/supabase  # Verify file size (~8MB expected)
+    - name: Install Supabase CLI
+      run: |
+        curl -L "https://github.com/supabase/cli/releases/latest/download/supabase-linux-amd64" -o supabase
+        chmod +x supabase
+        sudo mv supabase /usr/local/bin/
+        ls -lh /usr/local/bin/supabase  # Prüfe, ob die Datei existiert (~8MB)
 
-
-    - name: Verify Supabase CLI Installation
-      run: /usr/local/bin/supabase --version  # Ensure it's installed correctly
+    - name: Prüfe Supabase Installation
+      run: /usr/local/bin/supabase --version  
 
     - name: Authenticate with Supabase
       env:
