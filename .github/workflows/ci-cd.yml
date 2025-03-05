@@ -24,7 +24,7 @@ jobs:
         run: supabase --version
 
       - name: Authenticate with Supabase
-        run: supabase login --access-token "${{ secrets.SUPABASE_ACCESS_TOKEN }}"
+  run: echo "${{ secrets.SUPABASE_ACCESS_TOKEN }}" | supabase login --token
 
       - name: Deploy Supabase Functions
         run: supabase functions deploy --project-id "${{ secrets.SUPABASE_PROJECT_ID }}"
