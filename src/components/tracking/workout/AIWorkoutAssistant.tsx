@@ -34,7 +34,8 @@ const AIWorkoutAssistant = ({ userProfile }: AIWorkoutAssistantProps) => {
     Please provide a detailed workout plan that is optimized for my hormonal health.`;
 
     try {
-      const newHistory = [...history, { role: 'user', content: prompt }];
+      const newUserMessage = { role: 'user' as const, content: prompt };
+      const newHistory = [...history, newUserMessage];
       setHistory(newHistory);
       setPrompt('');
 
@@ -46,7 +47,7 @@ const AIWorkoutAssistant = ({ userProfile }: AIWorkoutAssistantProps) => {
 
       const aiResponse = data.generatedText || "I couldn't generate a workout plan. Please try again.";
       setResponse(aiResponse);
-      setHistory([...newHistory, { role: 'assistant', content: aiResponse }]);
+      setHistory([...newHistory, { role: 'assistant' as const, content: aiResponse }]);
     } catch (error) {
       console.error('Error generating workout plan:', error);
       toast({

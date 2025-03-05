@@ -2,7 +2,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 
-const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
+const deepseekApiKey = Deno.env.get('DEEPSEEK_API_KEY');
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -18,8 +18,8 @@ serve(async (req) => {
   try {
     const { prompt, userProfile } = await req.json();
 
-    if (!openAIApiKey) {
-      throw new Error('OPENAI_API_KEY is not set');
+    if (!deepseekApiKey) {
+      throw new Error('DEEPSEEK_API_KEY is not set');
     }
 
     console.log('Processing workout plan request for user profile:', 
@@ -48,14 +48,14 @@ serve(async (req) => {
       Use markdown formatting for better readability. Include specific exercises, sets, reps, 
       and rest periods where appropriate.`;
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${openAIApiKey}`,
+        'Authorization': `Bearer ${deepseekApiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'deepseek-chat',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: prompt }
@@ -66,8 +66,8 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('OpenAI API error:', errorData);
-      throw new Error(`OpenAI API error: ${errorData.error?.message || 'Unknown error'}`);
+      console.error('Deepseek API error:', errorData);
+      throw new Error(`Deepseek API error: ${errorData.error?.message || 'Unknown error'}`);
     }
 
     const data = await response.json();
