@@ -12,14 +12,15 @@
         :root {
             --primary-pink: #FF1493;
             --light-pink: #FFB6C1;
-            --soft-purple: #E6E6FA;
-            --text-dark: #2C3E50;
+            --soft-white: #E0E0E0;
+            --dark-background: #121212;
+            --medium-gray: #1E1E1E;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #FFF0F5 0%, #F5F5F5 100%);
-            color: var(--text-dark);
+            background-color: var(--dark-background);
+            color: var(--soft-white);
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
@@ -30,9 +31,9 @@
         }
 
         .hormone-harmonics-form {
-            background: white;
+            background-color: var(--medium-gray);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             padding: 2.5rem;
             width: 100%;
             max-width: 500px;
@@ -52,7 +53,7 @@
         .hormone-harmonics-form label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--text-dark);
+            color: var(--light-pink);
             font-weight: 600;
         }
 
@@ -60,17 +61,23 @@
         .hormone-harmonics-form textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid var(--light-pink);
+            border: 1px solid #333;
             border-radius: 10px;
-            background-color: #FAFAFA;
+            background-color: #1E1E1E;
+            color: var(--soft-white);
             transition: all 0.3s ease;
+        }
+
+        .hormone-harmonics-form input::placeholder,
+        .hormone-harmonics-form textarea::placeholder {
+            color: #888;
         }
 
         .hormone-harmonics-form input:focus,
         .hormone-harmonics-form textarea:focus {
             outline: none;
             border-color: var(--primary-pink);
-            box-shadow: 0 0 10px rgba(255, 20, 147, 0.2);
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
         }
 
         .hormone-harmonics-form textarea {
