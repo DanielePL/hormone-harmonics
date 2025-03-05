@@ -14,11 +14,10 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install Supabase CLI
-      run: |
-        curl -L "https://github.com/supabase/cli/releases/latest/download/supabase-linux-amd64" -o supabase
-        chmod +x supabase
-        sudo mv supabase /usr/local/bin/
-        ls -lh /usr/local/bin/supabase  # Prüfe, ob die Datei existiert (~8MB)
+  run: |
+    curl -fsSL https://get.supabase.com/install | sh
+    echo "$HOME/.supabase/bin" >> $GITHUB_PATH
+
 
     - name: Prüfe Supabase Installation
       run: /usr/local/bin/supabase --version  
