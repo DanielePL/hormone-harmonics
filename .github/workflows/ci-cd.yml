@@ -3,31 +3,28 @@ name: Deploy to Supabase
 on:
   push:
     branches:
-      - main  # Falls du eine andere Branch nutzt, ändere sie hier
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    - name: Install Supabase CLI
-  run: |
-    curl -fsSL https://get.supabase.com/install | sh
-    echo "$HOME/.supabase/bin" >> $GITHUB_PATH
+      - name: Install Supabase CLI
+        run: |
+          curl -L "https://github.com/supabase/cli/releases/latest/download/supabase_linux_amd64.tar.gz" -o supabase.tar.gz
+          tar -xvzf supabase.tar.gz
+          chmod +x supabase
+          sudo mv supabase /usr/local/bin/
 
+      - name: Verify Supabase CLI Installation
+        run: supabase --version
 
-    - name: Prüfe Supabase Installation
-      run: /usr/local/bin/supabase --version  
+      - name: Authenticate with Supabase
+        run: supabase login --access-token "${{ secrets.SUPABASE_ACCESS_TOKEN }}"
 
-    - name: Authenticate with Supabase
-      env:
-        SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-      run: echo "$SUPABASE_ACCESS_TOKEN" | /usr/local/bin/supabase login --access-token
-
-    - name: Deploy Supabase Functions
-      env:
-        SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
-      run: /usr/local/bin/supabase functions deploy --project-id "$SUPABASE_PROJECT_ID"
+      - name: Deploy Supabase Functions
+        run: supabase functions deploy --project-id "${{ secrets.SUPABASE_PROJECT_ID }}"
