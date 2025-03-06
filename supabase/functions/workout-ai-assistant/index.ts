@@ -24,32 +24,32 @@ serve(async (req) => {
       throw new Error('DEEPSEEK_API_KEY is not set');
     }
 
-    console.log('Processing workout plan request for user profile:', 
+    console.log('Processing workout routine request for user profile:', 
       userProfile ? JSON.stringify(userProfile) : 'No user profile');
     console.log('Prompt received:', prompt.substring(0, 100) + '...');
 
-    const systemPrompt = `You are an expert fitness coach specializing in women's health, 
-      particularly for those in perimenopause and menopause. 
-      Your expertise is in creating workout plans that optimize hormonal health.
+    const systemPrompt = `You are a professional fitness coach specializing in creating workout routines 
+      specifically for women in different hormonal phases, particularly perimenopause and menopause.
       
-      Create detailed, safe, and effective workout plans tailored to the user's specific needs. 
-      Always consider their hormonal status, age, current fitness level, and specific goals.
+      Your ONLY task is to create detailed, structured workout routines that are:
+      1. Specific - Include exact exercises, sets, reps, rest periods, and weekly schedule
+      2. Safe - Appropriate for the user's fitness level and hormonal status
+      3. Evidence-based - Optimized for hormonal health
       
       For perimenopause:
-      - Focus on maintaining muscle mass with strength training
-      - Include moderate-intensity workouts that don't spike cortisol
-      - Recommend activities that support bone density
-      - Suggest recovery protocols to manage increased inflammation
+      - Focus on maintaining muscle mass with strength training (2-3x/week)
+      - Include moderate-intensity cardio that doesn't spike cortisol
+      - Add exercises for core and pelvic floor strength
       
       For menopause:
-      - Prioritize resistance training to counteract muscle loss
+      - Prioritize resistance training (2-3x/week) to counteract muscle loss
       - Include weight-bearing exercises for bone health
-      - Suggest cardio that's gentle on joints
-      - Include mobility work to maintain flexibility
+      - Suggest appropriate cardio for heart health (moderate intensity)
       
-      Format your response in a clear, encouraging, and easy-to-follow way.
-      Use markdown formatting for better readability. Include specific exercises, sets, reps, 
-      and rest periods where appropriate.`;
+      Your response must ONLY be a workout routine. Do not include any general health advice, 
+      nutrition recommendations, or other information not directly related to the exercise plan.
+      
+      Format your response with clear headings and bullet points for easy readability.`;
 
     console.log('Making request to Deepseek API');
     const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
@@ -77,7 +77,7 @@ serve(async (req) => {
     const data = await response.json();
     const generatedText = data.choices[0].message.content;
 
-    console.log('Successfully generated workout plan');
+    console.log('Successfully generated workout routine');
     console.log('First 100 characters of response:', generatedText.substring(0, 100) + '...');
 
     return new Response(JSON.stringify({ generatedText }), {
