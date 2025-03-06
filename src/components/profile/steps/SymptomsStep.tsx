@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ClipboardCheck, ArrowRight, ArrowLeft, Sparkles, BadgeCheck } from 'lucide-react';
+import { useMediaQuery } from '@/hooks/use-media-query';
 
 interface SymptomData {
   weightGain: boolean;
@@ -33,8 +33,8 @@ const SymptomsStep = ({
 }: SymptomsStepProps) => {
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [recommendedSymptoms, setRecommendedSymptoms] = useState<string[]>([]);
+  const isMobile = useMediaQuery('(max-width: 640px)');
 
-  // Generate AI-powered recommendations based on menopause status
   useEffect(() => {
     const getRecommendations = () => {
       let recommended = [];
@@ -55,7 +55,6 @@ const SymptomsStep = ({
       
       setRecommendedSymptoms(recommended);
       
-      // Only show recommendations if no symptoms are selected yet
       const anySelected = Object.values(symptoms).some(Boolean);
       setShowRecommendations(!anySelected);
     };
@@ -63,7 +62,6 @@ const SymptomsStep = ({
     getRecommendations();
   }, [menopauseStatus, symptoms]);
 
-  // Apply recommended symptoms
   const applyRecommendations = () => {
     recommendedSymptoms.forEach(symptom => {
       if (!symptoms[symptom as keyof SymptomData]) {
@@ -72,11 +70,9 @@ const SymptomsStep = ({
     });
     setShowRecommendations(false);
   };
-  
-  // Count selected symptoms
+
   const selectedCount = Object.values(symptoms).filter(Boolean).length;
 
-  // Get readable symptom name
   const getSymptomLabel = (key: string): string => {
     const labels: Record<string, string> = {
       weightGain: 'Weight Gain',
@@ -129,97 +125,57 @@ const SymptomsStep = ({
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex items-start space-x-2">
-            <Checkbox 
-              id="weightGain" 
-              checked={symptoms.weightGain}
-              onCheckedChange={() => handleSymptomToggle('weightGain')}
-              className={`mt-1 ${recommendedSymptoms.includes('weightGain') ? 'border-primary' : ''}`}
-            />
-            <div className="grid gap-1.5">
-              <Label htmlFor="weightGain" className="text-sm font-medium">Weight Gain</Label>
-              <p className="text-xs text-muted-foreground">Especially around the abdomen</p>
-            </div>
-          </div>
-          
-          <div className="flex items-start space-x-2">
-            <Checkbox 
-              id="hotFlashes" 
-              checked={symptoms.hotFlashes}
-              onCheckedChange={() => handleSymptomToggle('hotFlashes')}
-              className={`mt-1 ${recommendedSymptoms.includes('hotFlashes') ? 'border-primary' : ''}`}
-            />
-            <div className="grid gap-1.5">
-              <Label htmlFor="hotFlashes" className="text-sm font-medium">Hot Flashes</Label>
-              <p className="text-xs text-muted-foreground">Sudden feeling of warmth</p>
-            </div>
-          </div>
-          
-          <div className="flex items-start space-x-2">
-            <Checkbox 
-              id="fatigue"
-              checked={symptoms.fatigue}
-              onCheckedChange={() => handleSymptomToggle('fatigue')}
-              className={`mt-1 ${recommendedSymptoms.includes('fatigue') ? 'border-primary' : ''}`}
-            />
-            <div className="grid gap-1.5">
-              <Label htmlFor="fatigue" className="text-sm font-medium">Fatigue</Label>
-              <p className="text-xs text-muted-foreground">Low energy levels throughout the day</p>
-            </div>
-          </div>
-          
-          <div className="flex items-start space-x-2">
-            <Checkbox 
-              id="sleepIssues"
-              checked={symptoms.sleepIssues}
-              onCheckedChange={() => handleSymptomToggle('sleepIssues')}
-              className={`mt-1 ${recommendedSymptoms.includes('sleepIssues') ? 'border-primary' : ''}`}
-            />
-            <div className="grid gap-1.5">
-              <Label htmlFor="sleepIssues" className="text-sm font-medium">Sleep Issues</Label>
-              <p className="text-xs text-muted-foreground">Trouble falling or staying asleep</p>
-            </div>
-          </div>
-          
-          <div className="flex items-start space-x-2">
-            <Checkbox 
-              id="moodChanges"
-              checked={symptoms.moodChanges}
-              onCheckedChange={() => handleSymptomToggle('moodChanges')}
-              className={`mt-1 ${recommendedSymptoms.includes('moodChanges') ? 'border-primary' : ''}`}
-            />
-            <div className="grid gap-1.5">
-              <Label htmlFor="moodChanges" className="text-sm font-medium">Mood Changes</Label>
-              <p className="text-xs text-muted-foreground">Irritability, anxiety, or depression</p>
-            </div>
-          </div>
-          
-          <div className="flex items-start space-x-2">
-            <Checkbox 
-              id="brainFog"
-              checked={symptoms.brainFog}
-              onCheckedChange={() => handleSymptomToggle('brainFog')}
-              className={`mt-1 ${recommendedSymptoms.includes('brainFog') ? 'border-primary' : ''}`}
-            />
-            <div className="grid gap-1.5">
-              <Label htmlFor="brainFog" className="text-sm font-medium">Brain Fog</Label>
-              <p className="text-xs text-muted-foreground">Difficulty concentrating or memory issues</p>
-            </div>
-          </div>
-          
-          <div className="flex items-start space-x-2">
-            <Checkbox 
-              id="jointPain"
-              checked={symptoms.jointPain}
-              onCheckedChange={() => handleSymptomToggle('jointPain')}
-              className={`mt-1 ${recommendedSymptoms.includes('jointPain') ? 'border-primary' : ''}`}
-            />
-            <div className="grid gap-1.5">
-              <Label htmlFor="jointPain" className="text-sm font-medium">Joint Pain</Label>
-              <p className="text-xs text-muted-foreground">Aches and stiffness in joints</p>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {Object.keys(symptoms).map((symptomKey) => {
+            const isChecked = symptoms[symptomKey as keyof SymptomData];
+            const isRecommended = recommendedSymptoms.includes(symptomKey);
+            
+            return (
+              <div 
+                key={symptomKey}
+                className={cn(
+                  "flex items-start space-x-3 p-3 rounded-lg transition-all duration-200",
+                  isChecked ? "bg-primary/5 border border-primary/20" : "hover:bg-slate-50"
+                )}
+              >
+                <Checkbox 
+                  id={symptomKey} 
+                  checked={isChecked}
+                  onCheckedChange={() => handleSymptomToggle(symptomKey)}
+                  className={cn(
+                    "mt-1",
+                    isRecommended ? "border-primary" : "",
+                    isChecked ? "border-primary" : ""
+                  )}
+                />
+                <div className="grid gap-1">
+                  <Label 
+                    htmlFor={symptomKey} 
+                    className={cn(
+                      "text-sm font-medium cursor-pointer",
+                      isChecked ? "text-primary" : ""
+                    )}
+                  >
+                    {getSymptomLabel(symptomKey)}
+                  </Label>
+                  <p className="text-xs text-muted-foreground">
+                    {(() => {
+                      switch(symptomKey) {
+                        case 'weightGain': return 'Especially around the abdomen';
+                        case 'hotFlashes': return 'Sudden feeling of warmth';
+                        case 'fatigue': return 'Low energy levels throughout the day';
+                        case 'sleepIssues': return 'Trouble falling or staying asleep';
+                        case 'moodChanges': return 'Irritability, anxiety, or depression';
+                        case 'brainFog': return 'Difficulty concentrating or memory issues';
+                        case 'jointPain': return 'Aches and stiffness in joints';
+                        default: return '';
+                      }
+                    })()}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         <div className="p-4 bg-amber-50 rounded-lg border border-amber-200 mt-6">
