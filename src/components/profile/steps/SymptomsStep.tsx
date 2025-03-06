@@ -1,13 +1,17 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ClipboardCheck, ArrowRight, ArrowLeft } from 'lucide-react';
-import { useMediaQuery } from '@/hooks/use-media-query';
+import { Card, CardContent } from '@/components/ui/card';
 import { SymptomData, getSymptomLabel } from './symptoms/SymptomData';
+import { 
+  getRecommendedSymptoms, 
+  shouldShowRecommendations,
+  applyRecommendedSymptoms
+} from './symptoms/SymptomRecommendations';
 import RecommendationPanel from './symptoms/RecommendationPanel';
 import SymptomsList from './symptoms/SymptomsList';
 import FactPanel from './symptoms/FactPanel';
+import SymptomStepHeader from './symptoms/SymptomStepHeader';
+import SymptomStepFooter from './symptoms/SymptomStepFooter';
 
 interface SymptomsStepProps {
   symptoms: SymptomData;
@@ -26,41 +30,17 @@ const SymptomsStep = ({
 }: SymptomsStepProps) => {
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [recommendedSymptoms, setRecommendedSymptoms] = useState<string[]>([]);
-  const isMobile = useMediaQuery('(max-width: 640px)');
 
   useEffect(() => {
-    const getRecommendations = () => {
-      let recommended = [];
-      
-      switch(menopauseStatus) {
-        case 'Peri':
-          recommended = ['hotFlashes', 'sleepIssues', 'moodChanges'];
-          break;
-        case 'Post':
-          recommended = ['weightGain', 'fatigue', 'jointPain'];
-          break;
-        case 'Pre':
-          recommended = ['moodChanges', 'fatigue'];
-          break;
-        default:
-          recommended = [];
-      }
-      
-      setRecommendedSymptoms(recommended);
-      
-      const anySelected = Object.values(symptoms).some(Boolean);
-      setShowRecommendations(!anySelected);
-    };
+    const recommended = getRecommendedSymptoms(menopauseStatus);
+    setRecommendedSymptoms(recommended);
     
-    getRecommendations();
+    const shouldShow = shouldShowRecommendations(symptoms);
+    setShowRecommendations(shouldShow);
   }, [menopauseStatus, symptoms]);
 
   const applyRecommendations = () => {
-    recommendedSymptoms.forEach(symptom => {
-      if (!symptoms[symptom as keyof SymptomData]) {
-        handleSymptomToggle(symptom);
-      }
-    });
+    applyRecommendedSymptoms(symptoms, recommendedSymptoms, handleSymptomToggle);
     setShowRecommendations(false);
   };
 
@@ -68,19 +48,8 @@ const SymptomsStep = ({
 
   return (
     <Card className="border-none shadow-md">
-      <CardHeader className="bg-gradient-to-r from-rose-100/70 to-teal-100/70 pb-6">
-        <div className="flex items-start gap-3">
-          <div className="p-2 bg-white rounded-full shadow-sm">
-            <ClipboardCheck className="w-5 h-5 text-primary" />
-          </div>
-          <div>
-            <CardTitle className="text-xl tracking-tight">Which Symptoms Affect You?</CardTitle>
-            <CardDescription className="mt-1 text-base">
-              Select all the symptoms you experience regularly
-            </CardDescription>
-          </div>
-        </div>
-      </CardHeader>
+      <SymptomStepHeader />
+      
       <CardContent className="space-y-6 pt-6">
         {showRecommendations && recommendedSymptoms.length > 0 && (
           <RecommendationPanel
@@ -99,27 +68,12 @@ const SymptomsStep = ({
 
         <FactPanel />
       </CardContent>
-      <CardFooter className="flex justify-between pt-2 pb-6 px-6">
-        <Button 
-          variant="outline" 
-          onClick={prevStep}
-          className="gap-2"
-        >
-          <ArrowLeft size={16} /> Back
-        </Button>
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-muted-foreground">
-            {selectedCount} symptoms selected
-          </span>
-          <Button 
-            onClick={nextStep}
-            className="px-5 gap-2"
-            size="lg"
-          >
-            Continue <ArrowRight size={16} />
-          </Button>
-        </div>
-      </CardFooter>
+      
+      <SymptomStepFooter 
+        prevStep={prevStep}
+        nextStep={nextStep}
+        selectedCount={selectedCount}
+      />
     </Card>
   );
 };
