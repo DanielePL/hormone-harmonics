@@ -62,19 +62,19 @@ const WorkoutTracker = () => {
           </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="log" className="mt-6 space-y-6">
+        <TabsContent value="log" className="mt-8 space-y-6">
           <LogWorkoutForm />
         </TabsContent>
         
-        <TabsContent value="plan" className="mt-6">
+        <TabsContent value="plan" className="mt-8">
           <WorkoutPlanSection userProfile={userProfile} />
         </TabsContent>
         
-        <TabsContent value="progress" className="mt-6">
+        <TabsContent value="progress" className="mt-8">
           <ProgressTracker />
         </TabsContent>
         
-        <TabsContent value="ai" className="mt-6">
+        <TabsContent value="ai" className="mt-8">
           <AIWorkoutAssistant userProfile={userProfile} />
         </TabsContent>
       </Tabs>
