@@ -35,7 +35,7 @@ const WorkoutTracker = () => {
       </div>
 
       <Tabs defaultValue="log" className="w-full">
-        <TabsList className={`grid w-full ${isMobile ? "grid-cols-2 gap-3 mb-8" : "grid-cols-4 mb-6"}`}>
+        <TabsList className={`${isMobile ? "flex flex-wrap gap-2 mb-8" : "grid grid-cols-4 mb-6"} w-full`}>
           <TabsTrigger 
             value="log" 
             className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
