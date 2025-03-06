@@ -21,19 +21,19 @@ const HormoneTracker = () => {
           <TabsList className={`${isMobile ? "flex flex-wrap gap-2" : "grid grid-cols-3"} w-full`}>
             <TabsTrigger 
               value="log" 
-              className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
+              className="text-base data-[state=active]:bg-[#FFDEE2] data-[state=active]:text-primary font-medium py-3"
             >
               Record Data
             </TabsTrigger>
             <TabsTrigger 
               value="trends" 
-              className="text-base data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary-foreground font-medium py-3"
+              className="text-base data-[state=active]:bg-[#F1F0FB] data-[state=active]:text-secondary-foreground font-medium py-3"
             >
               Hormone Trends
             </TabsTrigger>
             <TabsTrigger 
               value="symptoms" 
-              className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
+              className="text-base data-[state=active]:bg-[#FFDEE2] data-[state=active]:text-primary font-medium py-3"
             >
               Symptom Tracking
             </TabsTrigger>
