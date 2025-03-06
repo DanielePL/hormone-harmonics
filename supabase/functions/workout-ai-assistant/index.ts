@@ -16,14 +16,17 @@ serve(async (req) => {
   }
 
   try {
+    console.log('Received request to workout-ai-assistant');
     const { prompt, userProfile } = await req.json();
 
     if (!deepseekApiKey) {
+      console.error('DEEPSEEK_API_KEY is not set');
       throw new Error('DEEPSEEK_API_KEY is not set');
     }
 
     console.log('Processing workout plan request for user profile:', 
       userProfile ? JSON.stringify(userProfile) : 'No user profile');
+    console.log('Prompt received:', prompt.substring(0, 100) + '...');
 
     const systemPrompt = `You are an expert fitness coach specializing in women's health, 
       particularly for those in perimenopause and menopause. 
@@ -48,6 +51,7 @@ serve(async (req) => {
       Use markdown formatting for better readability. Include specific exercises, sets, reps, 
       and rest periods where appropriate.`;
 
+    console.log('Making request to Deepseek API');
     const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -74,6 +78,7 @@ serve(async (req) => {
     const generatedText = data.choices[0].message.content;
 
     console.log('Successfully generated workout plan');
+    console.log('First 100 characters of response:', generatedText.substring(0, 100) + '...');
 
     return new Response(JSON.stringify({ generatedText }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

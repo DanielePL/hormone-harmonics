@@ -19,7 +19,14 @@ const AIWorkoutAssistant = ({ userProfile }: AIWorkoutAssistantProps) => {
   const [history, setHistory] = useState<{role: 'user' | 'assistant', content: string}[]>([]);
 
   const generateWorkoutPlan = async () => {
-    if (!prompt.trim()) return;
+    if (!prompt.trim()) {
+      toast({
+        title: "Empty prompt",
+        description: "Please enter a workout request before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setIsLoading(true);
     const fullPrompt = `Based on the following information about me: 
@@ -39,12 +46,17 @@ const AIWorkoutAssistant = ({ userProfile }: AIWorkoutAssistantProps) => {
       setHistory(newHistory);
       setPrompt('');
 
+      console.log('Sending request to workout-ai-assistant function');
       const { data, error } = await supabase.functions.invoke('workout-ai-assistant', {
         body: { prompt: fullPrompt, userProfile },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase function error:', error);
+        throw error;
+      }
 
+      console.log('Response received:', data);
       const aiResponse = data.generatedText || "I couldn't generate a workout plan. Please try again.";
       setResponse(aiResponse);
       setHistory([...newHistory, { role: 'assistant' as const, content: aiResponse }]);
@@ -108,6 +120,9 @@ const AIWorkoutAssistant = ({ userProfile }: AIWorkoutAssistantProps) => {
             <p className="text-muted-foreground text-sm max-w-md">
               Ask me to create a personalized workout plan based on your hormonal profile, or specific goals you have.
             </p>
+            <div className="text-sm text-primary font-medium">
+              Example: "Create a 3-day strength training plan that's gentle on my joints"
+            </div>
           </div>
         )}
 
@@ -119,24 +134,29 @@ const AIWorkoutAssistant = ({ userProfile }: AIWorkoutAssistantProps) => {
             placeholder="Ask for workout advice, e.g. 'Create a 3-day split for building strength' or 'I want a workout plan for my high energy days'"
             className="resize-none min-h-[100px] form-field-validated border-0 shadow-sm focus:shadow-md"
           />
-          <Button 
-            onClick={generateWorkoutPlan} 
-            disabled={isLoading || !prompt.trim()} 
-            className="self-end px-6"
-            variant="gradient"
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Generating...
-              </>
-            ) : (
-              <>
-                <Send className="mr-2 h-4 w-4" />
-                Get Workout Plan
-              </>
-            )}
-          </Button>
+          <div className="flex justify-between items-center w-full">
+            <div className="text-xs text-muted-foreground">
+              {prompt.trim().length === 0 ? "Enter your workout request to enable the button" : ""}
+            </div>
+            <Button 
+              onClick={generateWorkoutPlan} 
+              disabled={isLoading || !prompt.trim()} 
+              className="px-6"
+              variant="gradient"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <Send className="mr-2 h-4 w-4" />
+                  Get Workout Plan
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
