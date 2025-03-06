@@ -35,46 +35,48 @@ const WorkoutTracker = () => {
       </div>
 
       <Tabs defaultValue="log" className="w-full">
-        <TabsList className={`${isMobile ? "flex flex-wrap gap-2 mb-8" : "grid grid-cols-4 mb-6"} w-full`}>
-          <TabsTrigger 
-            value="log" 
-            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
-          >
-            Log Workout
-          </TabsTrigger>
-          <TabsTrigger 
-            value="plan" 
-            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
-          >
-            My Plan
-          </TabsTrigger>
-          <TabsTrigger 
-            value="progress" 
-            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
-          >
-            Progress
-          </TabsTrigger>
-          <TabsTrigger 
-            value="ai" 
-            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
-          >
-            AI Coach
-          </TabsTrigger>
-        </TabsList>
+        <div className={`${isMobile ? "mb-12" : "mb-6"}`}>
+          <TabsList className={`${isMobile ? "flex flex-wrap gap-2" : "grid grid-cols-4"} w-full`}>
+            <TabsTrigger 
+              value="log" 
+              className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
+            >
+              Log Workout
+            </TabsTrigger>
+            <TabsTrigger 
+              value="plan" 
+              className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
+            >
+              My Plan
+            </TabsTrigger>
+            <TabsTrigger 
+              value="progress" 
+              className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
+            >
+              Progress
+            </TabsTrigger>
+            <TabsTrigger 
+              value="ai" 
+              className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
+            >
+              AI Coach
+            </TabsTrigger>
+          </TabsList>
+        </div>
         
-        <TabsContent value="log" className="mt-8 space-y-6">
+        <TabsContent value="log" className={`${isMobile ? "mt-4" : "mt-8"} space-y-6`}>
           <LogWorkoutForm />
         </TabsContent>
         
-        <TabsContent value="plan" className="mt-8">
+        <TabsContent value="plan" className={`${isMobile ? "mt-4" : "mt-8"}`}>
           <WorkoutPlanSection userProfile={userProfile} />
         </TabsContent>
         
-        <TabsContent value="progress" className="mt-8">
+        <TabsContent value="progress" className={`${isMobile ? "mt-4" : "mt-8"}`}>
           <ProgressTracker />
         </TabsContent>
         
-        <TabsContent value="ai" className="mt-8">
+        <TabsContent value="ai" className={`${isMobile ? "mt-4" : "mt-8"}`}>
           <AIWorkoutAssistant userProfile={userProfile} />
         </TabsContent>
       </Tabs>
