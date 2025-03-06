@@ -2,15 +2,18 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Check, Heart } from 'lucide-react';
+import { useMediaQuery } from '@/hooks/use-media-query';
 
 const SubscriptionOptions = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  
   return (
-    <div className="mt-6 p-5 rounded-lg border-2 border-primary bg-primary/5">
+    <div className="mt-6 p-4 md:p-5 rounded-lg border-2 border-primary bg-primary/5">
       <div className="flex items-center gap-3 mb-3">
-        <Heart className="h-6 w-6 text-primary" />
-        <h3 className="text-lg font-semibold">Unlock Your Full Personalized Plan</h3>
+        <Heart className="h-5 h-5 md:h-6 md:w-6 text-primary" />
+        <h3 className="text-base md:text-lg font-semibold">Unlock Your Full Personalized Plan</h3>
       </div>
-      <p className="text-sm text-muted-foreground mb-4">
+      <p className="text-xs md:text-sm text-muted-foreground mb-4">
         You're not alone on this journey. Join thousands of women who have transformed their menopause experience with our AI-powered plans.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -18,7 +21,7 @@ const SubscriptionOptions = () => {
           <div className="flex justify-between items-start mb-2">
             <div>
               <h4 className="font-medium">Monthly</h4>
-              <p className="text-2xl font-bold">$19.99<span className="text-sm font-normal text-muted-foreground">/month</span></p>
+              <p className="text-xl md:text-2xl font-bold">$19.99<span className="text-xs md:text-sm font-normal text-muted-foreground">/month</span></p>
             </div>
             <div className="px-2 py-1 bg-primary/10 rounded text-xs font-medium text-primary">
               POPULAR
@@ -38,14 +41,14 @@ const SubscriptionOptions = () => {
               <span>Personalized tracking dashboard</span>
             </li>
           </ul>
-          <Button className="w-full">Start 7-Day Free Trial</Button>
+          <Button size={isMobile ? "mobile" : "default"} className="w-full">Start 7-Day Free Trial</Button>
         </div>
         
         <div className="p-3 rounded-lg bg-white shadow-sm">
           <div className="flex justify-between items-start mb-2">
             <div>
               <h4 className="font-medium">Annual</h4>
-              <p className="text-2xl font-bold">$179.99<span className="text-sm font-normal text-muted-foreground">/year</span></p>
+              <p className="text-xl md:text-2xl font-bold">$179.99<span className="text-xs md:text-sm font-normal text-muted-foreground">/year</span></p>
             </div>
             <div className="px-2 py-1 bg-green-100 rounded text-xs font-medium text-green-700">
               SAVE 20%
@@ -62,10 +65,10 @@ const SubscriptionOptions = () => {
             </li>
             <li className="text-xs flex items-center gap-2">
               <Check className="h-3 w-3 text-primary" />
-              <span>Priority support and coaching</span>
+              <span>Energy-optimizing supplement advice</span>
             </li>
           </ul>
-          <Button variant="outline" className="w-full border-primary text-primary">Choose Annual Plan</Button>
+          <Button size={isMobile ? "mobile" : "default"} variant="outline" className="w-full border-primary text-primary">Choose Annual Plan</Button>
         </div>
       </div>
       <p className="text-center text-xs text-muted-foreground">
