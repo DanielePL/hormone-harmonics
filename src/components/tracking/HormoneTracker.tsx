@@ -17,7 +17,7 @@ const HormoneTracker = () => {
       </div>
 
       <Tabs defaultValue="log" className="w-full">
-        <TabsList className={`grid w-full mb-6 ${isMobile ? "grid-cols-1 gap-2" : "grid-cols-3"}`}>
+        <TabsList className={`grid w-full ${isMobile ? "grid-cols-1 gap-3 mb-8" : "grid-cols-3 mb-6"}`}>
           <TabsTrigger 
             value="log" 
             className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
@@ -38,15 +38,15 @@ const HormoneTracker = () => {
           </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="log" className="mt-4 space-y-4">
+        <TabsContent value="log" className="mt-8 space-y-4">
           <RecordDataTab />
         </TabsContent>
         
-        <TabsContent value="trends" className="mt-4">
+        <TabsContent value="trends" className="mt-8">
           <HormoneTrendsTab />
         </TabsContent>
         
-        <TabsContent value="symptoms" className="mt-4">
+        <TabsContent value="symptoms" className="mt-8">
           <SymptomTrackingTab />
         </TabsContent>
       </Tabs>
