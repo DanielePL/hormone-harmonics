@@ -17,19 +17,19 @@ const HormoneTracker = () => {
         <TabsList className="grid w-full grid-cols-3 mb-6">
           <TabsTrigger 
             value="log" 
-            className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
+            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
           >
             Record Data
           </TabsTrigger>
           <TabsTrigger 
             value="trends" 
-            className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
+            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
           >
             Hormone Trends
           </TabsTrigger>
           <TabsTrigger 
             value="symptoms" 
-            className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
+            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
           >
             Symptom Tracking
           </TabsTrigger>

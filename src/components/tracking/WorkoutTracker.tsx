@@ -32,11 +32,31 @@ const WorkoutTracker = () => {
       </div>
 
       <Tabs defaultValue="log" className="w-full">
-        <TabsList className="grid w-full max-w-md grid-cols-4 mb-6">
-          <TabsTrigger value="log" className="text-base">Log Workout</TabsTrigger>
-          <TabsTrigger value="plan" className="text-base">My Plan</TabsTrigger>
-          <TabsTrigger value="progress" className="text-base">Progress</TabsTrigger>
-          <TabsTrigger value="ai" className="text-base">AI Coach</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-4 mb-6">
+          <TabsTrigger 
+            value="log" 
+            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
+          >
+            Log Workout
+          </TabsTrigger>
+          <TabsTrigger 
+            value="plan" 
+            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
+          >
+            My Plan
+          </TabsTrigger>
+          <TabsTrigger 
+            value="progress" 
+            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
+          >
+            Progress
+          </TabsTrigger>
+          <TabsTrigger 
+            value="ai" 
+            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
+          >
+            AI Coach
+          </TabsTrigger>
         </TabsList>
         
         <TabsContent value="log" className="mt-6 space-y-6">
