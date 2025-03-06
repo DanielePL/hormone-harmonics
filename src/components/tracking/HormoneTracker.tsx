@@ -44,10 +44,25 @@ const HormoneTracker = () => {
       </div>
 
       <Tabs defaultValue="log" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="log">Log Hormones</TabsTrigger>
-          <TabsTrigger value="trends">Hormone Trends</TabsTrigger>
-          <TabsTrigger value="symptoms">Symptom Tracking</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3 mb-6">
+          <TabsTrigger 
+            value="log" 
+            className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
+          >
+            Record Data
+          </TabsTrigger>
+          <TabsTrigger 
+            value="trends" 
+            className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
+          >
+            Hormone Trends
+          </TabsTrigger>
+          <TabsTrigger 
+            value="symptoms" 
+            className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium"
+          >
+            Symptom Tracking
+          </TabsTrigger>
         </TabsList>
         
         <TabsContent value="log" className="mt-4 space-y-4">
