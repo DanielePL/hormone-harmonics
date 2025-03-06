@@ -17,36 +17,38 @@ const HormoneTracker = () => {
       </div>
 
       <Tabs defaultValue="log" className="w-full">
-        <TabsList className={`${isMobile ? "flex flex-wrap gap-2 mb-8" : "grid grid-cols-3 mb-6"} w-full`}>
-          <TabsTrigger 
-            value="log" 
-            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
-          >
-            Record Data
-          </TabsTrigger>
-          <TabsTrigger 
-            value="trends" 
-            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
-          >
-            Hormone Trends
-          </TabsTrigger>
-          <TabsTrigger 
-            value="symptoms" 
-            className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
-          >
-            Symptom Tracking
-          </TabsTrigger>
-        </TabsList>
+        <div className={`${isMobile ? "mb-16" : "mb-6"}`}>
+          <TabsList className={`${isMobile ? "flex flex-wrap gap-2" : "grid grid-cols-3"} w-full`}>
+            <TabsTrigger 
+              value="log" 
+              className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
+            >
+              Record Data
+            </TabsTrigger>
+            <TabsTrigger 
+              value="trends" 
+              className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
+            >
+              Hormone Trends
+            </TabsTrigger>
+            <TabsTrigger 
+              value="symptoms" 
+              className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
+            >
+              Symptom Tracking
+            </TabsTrigger>
+          </TabsList>
+        </div>
         
-        <TabsContent value="log" className="mt-8 space-y-4">
+        <TabsContent value="log" className={`${isMobile ? "mt-6" : "mt-8"} space-y-4`}>
           <RecordDataTab />
         </TabsContent>
         
-        <TabsContent value="trends" className="mt-8">
+        <TabsContent value="trends" className={`${isMobile ? "mt-6" : "mt-8"}`}>
           <HormoneTrendsTab />
         </TabsContent>
         
-        <TabsContent value="symptoms" className="mt-8">
+        <TabsContent value="symptoms" className={`${isMobile ? "mt-6" : "mt-8"}`}>
           <SymptomTrackingTab />
         </TabsContent>
       </Tabs>

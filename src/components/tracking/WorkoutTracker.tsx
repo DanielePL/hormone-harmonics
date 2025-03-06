@@ -35,7 +35,7 @@ const WorkoutTracker = () => {
       </div>
 
       <Tabs defaultValue="log" className="w-full">
-        <div className={`${isMobile ? "mb-12" : "mb-6"}`}>
+        <div className={`${isMobile ? "mb-16" : "mb-6"}`}>
           <TabsList className={`${isMobile ? "flex flex-wrap gap-2" : "grid grid-cols-4"} w-full`}>
             <TabsTrigger 
               value="log" 
@@ -64,19 +64,19 @@ const WorkoutTracker = () => {
           </TabsList>
         </div>
         
-        <TabsContent value="log" className={`${isMobile ? "mt-4" : "mt-8"} space-y-6`}>
+        <TabsContent value="log" className={`${isMobile ? "mt-6" : "mt-8"} space-y-6`}>
           <LogWorkoutForm />
         </TabsContent>
         
-        <TabsContent value="plan" className={`${isMobile ? "mt-4" : "mt-8"}`}>
+        <TabsContent value="plan" className={`${isMobile ? "mt-6" : "mt-8"}`}>
           <WorkoutPlanSection userProfile={userProfile} />
         </TabsContent>
         
-        <TabsContent value="progress" className={`${isMobile ? "mt-4" : "mt-8"}`}>
+        <TabsContent value="progress" className={`${isMobile ? "mt-6" : "mt-8"}`}>
           <ProgressTracker />
         </TabsContent>
         
-        <TabsContent value="ai" className={`${isMobile ? "mt-4" : "mt-8"}`}>
+        <TabsContent value="ai" className={`${isMobile ? "mt-6" : "mt-8"}`}>
           <AIWorkoutAssistant userProfile={userProfile} />
         </TabsContent>
       </Tabs>
