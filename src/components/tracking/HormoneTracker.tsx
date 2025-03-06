@@ -2,7 +2,6 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -53,61 +52,6 @@ const HormoneTracker = () => {
         
         <TabsContent value="log" className="mt-4 space-y-4">
           <AnimatedCard>
-            <Card>
-              <CardHeader>
-                <CardTitle>Log Hormone Levels</CardTitle>
-                <CardDescription>Enter your latest hormone test results or estimates</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="date">Date</Label>
-                      <Input id="date" type="date" />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="estrogen">Estrogen (pg/mL)</Label>
-                      <Input id="estrogen" type="number" placeholder="e.g., 100" />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="progesterone">Progesterone (ng/mL)</Label>
-                      <Input id="progesterone" type="number" placeholder="e.g., 5" />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="testosterone">Testosterone (ng/dL)</Label>
-                      <Input id="testosterone" type="number" placeholder="e.g., 40" />
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="cortisol">Cortisol (μg/dL)</Label>
-                      <Input id="cortisol" type="number" placeholder="e.g., 15" />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="tsh">TSH (mIU/L)</Label>
-                      <Input id="tsh" type="number" placeholder="e.g., 2.5" />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="notes">Notes</Label>
-                      <Textarea id="notes" placeholder="Add any details about your test or how you're feeling" />
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex justify-end">
-                  <Button>Save Hormone Data</Button>
-                </div>
-              </CardContent>
-            </Card>
-          </AnimatedCard>
-          
-          <AnimatedCard delay={100}>
             <Card>
               <CardHeader>
                 <CardTitle>Quick Estimate</CardTitle>
@@ -268,7 +212,7 @@ const HormoneTracker = () => {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="symptom-date">Date</Label>
-                    <Input id="symptom-date" type="date" />
+                    <input id="symptom-date" type="date" className="w-full px-3 py-2 border border-gray-300 rounded-md" />
                   </div>
                   
                   <div className="space-y-2">
