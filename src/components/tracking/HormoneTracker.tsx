@@ -27,7 +27,7 @@ const HormoneTracker = () => {
             </TabsTrigger>
             <TabsTrigger 
               value="trends" 
-              className="text-base data-[state=active]:bg-primary/10 data-[state=active]:text-primary font-medium py-3"
+              className="text-base data-[state=active]:bg-secondary/20 data-[state=active]:text-secondary-foreground font-medium py-3"
             >
               Hormone Trends
             </TabsTrigger>
